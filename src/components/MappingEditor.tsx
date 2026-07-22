@@ -34,7 +34,9 @@ export function MappingEditor({
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState<string | null>(null);
 
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [courseId]);
+  useEffect(() => {
+    load(); /* eslint-disable-next-line */
+  }, [courseId]);
 
   async function load() {
     setLoading(true);
@@ -81,8 +83,15 @@ export function MappingEditor({
 
   async function publishAll() {
     if (!isAdmin) return;
-    const updates = rows.map((r) => ({ ...r, course_id: courseId, published: true, updated_by: user?.id ?? null }));
-    const { error } = await supabase.from("course_mappings").upsert(updates, { onConflict: "course_id,co_code" });
+    const updates = rows.map((r) => ({
+      ...r,
+      course_id: courseId,
+      published: true,
+      updated_by: user?.id ?? null,
+    }));
+    const { error } = await supabase
+      .from("course_mappings")
+      .upsert(updates, { onConflict: "course_id,co_code" });
     if (error) return toast.error(error.message);
     toast.success("Published mappings for cohort visibility.");
     load();
@@ -99,7 +108,15 @@ export function MappingEditor({
   function addRow() {
     setRows((rs) => [
       ...rs,
-      { course_id: courseId, co_code: `CO${rs.length + 1}`, co_statement: "", tlo_ids: [], bloom_level: "Apply", notes: null, published: false },
+      {
+        course_id: courseId,
+        co_code: `CO${rs.length + 1}`,
+        co_statement: "",
+        tlo_ids: [],
+        bloom_level: "Apply",
+        notes: null,
+        published: false,
+      },
     ]);
   }
   async function removeRow(idx: number) {
@@ -119,13 +136,20 @@ export function MappingEditor({
         <div>
           <h3 className="font-mono text-lg">CO ↔ TLO Mapping</h3>
           <p className="text-xs text-muted-foreground">
-            {isAdmin ? "Edit the canonical mapping. Publish to push to student-facing views." : "Read-only view of the published curriculum mapping."}
+            {isAdmin
+              ? "Edit the canonical mapping. Publish to push to student-facing views."
+              : "Read-only view of the published curriculum mapping."}
           </p>
         </div>
         {isAdmin ? (
-          <Button onClick={publishAll} className="font-mono text-xs">Publish all</Button>
+          <Button onClick={publishAll} className="font-mono text-xs">
+            Publish all
+          </Button>
         ) : (
-          <Link to="/auth" className="inline-flex items-center gap-1 font-mono text-[11px] text-muted-foreground hover:text-foreground">
+          <Link
+            to="/auth"
+            className="inline-flex items-center gap-1 font-mono text-[11px] text-muted-foreground hover:text-foreground"
+          >
             <Lock className="h-3 w-3" /> Admin sign-in to edit
           </Link>
         )}
@@ -133,7 +157,10 @@ export function MappingEditor({
 
       <div className="mt-4 space-y-3">
         {rows.map((r, idx) => (
-          <div key={(r.id ?? r.co_code) + idx} className="rounded-lg border border-border/40 bg-background/30 p-3">
+          <div
+            key={(r.id ?? r.co_code) + idx}
+            className="rounded-lg border border-border/40 bg-background/30 p-3"
+          >
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 {isAdmin ? (
@@ -145,22 +172,41 @@ export function MappingEditor({
                 ) : (
                   <p className="font-mono text-sm text-primary">{r.co_code}</p>
                 )}
-                <Badge variant="outline" className="font-mono text-[10px]">Bloom · {r.bloom_level ?? "—"}</Badge>
+                <Badge variant="outline" className="font-mono text-[10px]">
+                  Bloom · {r.bloom_level ?? "—"}
+                </Badge>
                 {r.published ? (
-                  <Badge className="bg-primary/30 font-mono text-[10px] text-primary">Published</Badge>
+                  <Badge className="bg-primary/30 font-mono text-[10px] text-primary">
+                    Published
+                  </Badge>
                 ) : (
-                  <Badge variant="outline" className="font-mono text-[10px]">Draft</Badge>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    Draft
+                  </Badge>
                 )}
               </div>
               {isAdmin && (
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Pub</span>
-                    <Switch checked={r.published} onCheckedChange={(v) => update(idx, { published: v })} />
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                      Pub
+                    </span>
+                    <Switch
+                      checked={r.published}
+                      onCheckedChange={(v) => update(idx, { published: v })}
+                    />
                   </div>
-                  <Button size="sm" variant="ghost" onClick={() => removeRow(idx)}><Trash2 className="h-3.5 w-3.5" /></Button>
-                  <Button size="sm" disabled={savingId === r.co_code} onClick={() => saveRow(idx)} className="font-mono text-[11px]">
-                    <Save className="mr-1 h-3 w-3" />{savingId === r.co_code ? "Saving…" : "Save"}
+                  <Button size="sm" variant="ghost" onClick={() => removeRow(idx)}>
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    disabled={savingId === r.co_code}
+                    onClick={() => saveRow(idx)}
+                    className="font-mono text-[11px]"
+                  >
+                    <Save className="mr-1 h-3 w-3" />
+                    {savingId === r.co_code ? "Saving…" : "Save"}
                   </Button>
                 </div>
               )}

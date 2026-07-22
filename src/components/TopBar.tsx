@@ -19,7 +19,11 @@ export function FrameworkSearch() {
     const out: Hit[] = [];
 
     TLOS.forEach((t) => {
-      if (t.id.toLowerCase().includes(needle) || t.title.toLowerCase().includes(needle) || t.description.toLowerCase().includes(needle)) {
+      if (
+        t.id.toLowerCase().includes(needle) ||
+        t.title.toLowerCase().includes(needle) ||
+        t.description.toLowerCase().includes(needle)
+      ) {
         out.push({ kind: "TLO", label: `${t.id} — ${t.title}`, sub: t.verb, to: "/outcomes" });
       }
     });
@@ -30,8 +34,16 @@ export function FrameworkSearch() {
           out.push({ kind: "Course", label: c.title, sub: `${y.key} · ${c.id}`, to: "/roadmap" });
         }
         c.clos.forEach((clo) => {
-          if (clo.statement.toLowerCase().includes(needle) || clo.id.toLowerCase().includes(needle)) {
-            out.push({ kind: "CLO", label: `${c.id}/${clo.id}`, sub: clo.statement.slice(0, 70) + "…", to: "/outcomes" });
+          if (
+            clo.statement.toLowerCase().includes(needle) ||
+            clo.id.toLowerCase().includes(needle)
+          ) {
+            out.push({
+              kind: "CLO",
+              label: `${c.id}/${clo.id}`,
+              sub: clo.statement.slice(0, 70) + "…",
+              to: "/outcomes",
+            });
           }
         });
       });
@@ -47,24 +59,44 @@ export function FrameworkSearch() {
       { label: "Full Syllabus", to: "/syllabus" },
       { label: "Syllabus Overview", to: "/syllabus-overview" },
     ].forEach((p) => {
-      if (p.label.toLowerCase().includes(needle)) out.push({ kind: "Page", label: p.label, sub: "Page", to: p.to });
+      if (p.label.toLowerCase().includes(needle))
+        out.push({ kind: "Page", label: p.label, sub: "Page", to: p.to });
     });
 
     // Extended 10 TLOs
     TLOS_EXT.forEach((t) => {
-      if (t.id.toLowerCase().includes(needle) || t.short.toLowerCase().includes(needle) || t.statement.toLowerCase().includes(needle)) {
-        out.push({ kind: "TLO", label: `${t.id} — ${t.short}`, sub: t.verbTier, to: "/command-center" });
+      if (
+        t.id.toLowerCase().includes(needle) ||
+        t.short.toLowerCase().includes(needle) ||
+        t.statement.toLowerCase().includes(needle)
+      ) {
+        out.push({
+          kind: "TLO",
+          label: `${t.id} — ${t.short}`,
+          sub: t.verbTier,
+          to: "/command-center",
+        });
       }
     });
 
     // Course designs
     COURSES_DESIGN.forEach((c) => {
       if (c.title.toLowerCase().includes(needle) || c.id.toLowerCase().includes(needle)) {
-        out.push({ kind: "Course", label: c.title, sub: `Sem ${c.semester} · Course Designer`, to: `/course/${c.id}` });
+        out.push({
+          kind: "Course",
+          label: c.title,
+          sub: `Sem ${c.semester} · Course Designer`,
+          to: `/course/${c.id}`,
+        });
       }
       c.cos.forEach((co) => {
         if (co.id.toLowerCase().includes(needle) || co.statement.toLowerCase().includes(needle)) {
-          out.push({ kind: "CLO", label: `${c.id}/${co.id}`, sub: co.statement.slice(0, 70) + "…", to: `/course/${c.id}` });
+          out.push({
+            kind: "CLO",
+            label: `${c.id}/${co.id}`,
+            sub: co.statement.slice(0, 70) + "…",
+            to: `/course/${c.id}`,
+          });
         }
       });
     });
@@ -72,17 +104,32 @@ export function FrameworkSearch() {
     // Syllabus search across semesters, modules, weeks, TLOs
     SEMESTERS.forEach((s) => {
       if (s.title.toLowerCase().includes(needle) || s.theme.toLowerCase().includes(needle)) {
-        out.push({ kind: "Page", label: `${s.key} · ${s.title}`, sub: "Semester", to: "/syllabus" });
+        out.push({
+          kind: "Page",
+          label: `${s.key} · ${s.title}`,
+          sub: "Semester",
+          to: "/syllabus",
+        });
       }
       s.modules.forEach((m) => {
         if (m.title.toLowerCase().includes(needle)) {
-          out.push({ kind: "Course", label: `${s.key}/${m.id} · ${m.title}`, sub: "Module", to: "/syllabus" });
+          out.push({
+            kind: "Course",
+            label: `${s.key}/${m.id} · ${m.title}`,
+            sub: "Module",
+            to: "/syllabus",
+          });
         }
       });
     });
     WEEKS.forEach((w) => {
       if (w.title.toLowerCase().includes(needle)) {
-        out.push({ kind: "Page", label: `${w.semester} W${w.week} · ${w.title}`, sub: "Week", to: "/syllabus" });
+        out.push({
+          kind: "Page",
+          label: `${w.semester} W${w.week} · ${w.title}`,
+          sub: "Week",
+          to: "/syllabus",
+        });
       }
     });
     TLOS_FULL.forEach((t) => {
@@ -111,14 +158,19 @@ export function FrameworkSearch() {
           {results.map((r, i) => (
             <button
               key={i}
-              onClick={() => { setQ(""); navigate({ to: r.to as string }); }}
+              onClick={() => {
+                setQ("");
+                navigate({ to: r.to as string });
+              }}
               className="flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-sm hover:bg-accent/40"
             >
               <div className="min-w-0">
                 <div className="truncate font-mono text-foreground">{r.label}</div>
                 <div className="truncate text-[11px] text-muted-foreground">{r.sub}</div>
               </div>
-              <span className="rounded-sm border border-border bg-muted/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{r.kind}</span>
+              <span className="rounded-sm border border-border bg-muted/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                {r.kind}
+              </span>
             </button>
           ))}
         </div>
@@ -133,7 +185,10 @@ export function TopBar({ title, breadcrumb }: { title: string; breadcrumb?: stri
       <div className="flex items-baseline gap-2">
         {breadcrumb && (
           <>
-            <Link to="/" className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground">
+            <Link
+              to="/"
+              className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground"
+            >
               {breadcrumb}
             </Link>
             <span className="text-muted-foreground/40">/</span>

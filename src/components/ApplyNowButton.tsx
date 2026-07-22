@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,7 +24,12 @@ interface ApplyNowButtonProps {
   label?: string;
 }
 
-export function ApplyNowButton({ className, variant = "default", size = "default", label = "Apply Now" }: ApplyNowButtonProps) {
+export function ApplyNowButton({
+  className,
+  variant = "default",
+  size = "default",
+  label = "Apply Now",
+}: ApplyNowButtonProps) {
   const [open, setOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -40,7 +53,13 @@ export function ApplyNowButton({ className, variant = "default", size = "default
   }
 
   return (
-    <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) setDone(false); }}>
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        setOpen(v);
+        if (!v) setDone(false);
+      }}
+    >
       <DialogTrigger asChild>
         <Button
           variant={variant}
@@ -56,7 +75,9 @@ export function ApplyNowButton({ className, variant = "default", size = "default
       </DialogTrigger>
       <DialogContent className="glass-strong border-border/60 sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-mono tracking-tight">Apply — NST Entrepreneurship Track</DialogTitle>
+          <DialogTitle className="font-mono tracking-tight">
+            Apply — NST Entrepreneurship Track
+          </DialogTitle>
           <DialogDescription className="text-muted-foreground">
             Execution-first founders only. We review on a rolling basis.
           </DialogDescription>
@@ -64,24 +85,51 @@ export function ApplyNowButton({ className, variant = "default", size = "default
         {done ? (
           <div className="py-6 text-center font-mono text-sm">
             <p className="gold-text text-base">Application received.</p>
-            <p className="mt-2 text-muted-foreground">We&apos;ll get back within 5 business days.</p>
+            <p className="mt-2 text-muted-foreground">
+              We&apos;ll get back within 5 business days.
+            </p>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="space-y-3">
             <div className="space-y-1.5">
-              <Label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground">Full Name</Label>
+              <Label
+                htmlFor="name"
+                className="text-xs uppercase tracking-widest text-muted-foreground"
+              >
+                Full Name
+              </Label>
               <Input id="name" name="name" required className="bg-background/40" />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground">Email</Label>
+              <Label
+                htmlFor="email"
+                className="text-xs uppercase tracking-widest text-muted-foreground"
+              >
+                Email
+              </Label>
               <Input id="email" name="email" type="email" required className="bg-background/40" />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="venture" className="text-xs uppercase tracking-widest text-muted-foreground">Venture / Idea</Label>
-              <Textarea id="venture" name="venture" rows={3} className="bg-background/40" placeholder="What problem are you solving and what have you executed so far?" />
+              <Label
+                htmlFor="venture"
+                className="text-xs uppercase tracking-widest text-muted-foreground"
+              >
+                Venture / Idea
+              </Label>
+              <Textarea
+                id="venture"
+                name="venture"
+                rows={3}
+                className="bg-background/40"
+                placeholder="What problem are you solving and what have you executed so far?"
+              />
             </div>
             <DialogFooter>
-              <Button type="submit" disabled={submitting} className="bg-primary text-primary-foreground hover:bg-primary/90 font-mono uppercase tracking-widest text-xs">
+              <Button
+                type="submit"
+                disabled={submitting}
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-mono uppercase tracking-widest text-xs"
+              >
                 {submitting && <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />}
                 Submit Application
               </Button>

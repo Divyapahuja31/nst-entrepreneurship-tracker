@@ -82,9 +82,13 @@ function Page() {
         <section className="glass-strong rounded-2xl p-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">CLO × TLO Map</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                CLO × TLO Map
+              </p>
               <h2 className="font-mono text-xl tracking-tight">Every outcome, traced.</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{filtered.length} of {rows.length} CLOs</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {filtered.length} of {rows.length} CLOs
+              </p>
             </div>
             <div className="relative w-full max-w-sm">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
@@ -101,7 +105,9 @@ function Page() {
             <button
               onClick={() => setTloFilter(null)}
               className={`rounded-md border px-2.5 py-1 font-mono text-[11px] uppercase tracking-widest ${
-                !tloFilter ? "border-primary/50 bg-primary/15 text-primary" : "border-border/60 bg-background/30 text-muted-foreground hover:text-foreground"
+                !tloFilter
+                  ? "border-primary/50 bg-primary/15 text-primary"
+                  : "border-border/60 bg-background/30 text-muted-foreground hover:text-foreground"
               }`}
             >
               All
@@ -112,16 +118,22 @@ function Page() {
                   <button
                     onClick={() => setTloFilter(tloFilter === t.id ? null : t.id)}
                     className={`rounded-md border px-2.5 py-1 font-mono text-[11px] uppercase tracking-widest ${
-                      tloFilter === t.id ? "border-primary/50 bg-primary/15 text-primary" : "border-border/60 bg-background/30 text-muted-foreground hover:text-foreground"
+                      tloFilter === t.id
+                        ? "border-primary/50 bg-primary/15 text-primary"
+                        : "border-border/60 bg-background/30 text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {t.id}
                   </button>
                 </HoverCardTrigger>
                 <HoverCardContent className="glass-strong w-80 border-border/60">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">{t.id} · {t.verb}</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">
+                    {t.id} · {t.verb}
+                  </p>
                   <h4 className="mt-1 font-mono text-sm">{t.title}</h4>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t.description}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t.description}
+                  </p>
                 </HoverCardContent>
               </HoverCard>
             ))}
@@ -145,8 +157,13 @@ function Page() {
               </div>
             )}
             {filtered.map((r, i) => (
-              <div key={i} className="grid grid-cols-1 gap-3 px-6 py-4 transition hover:bg-accent/20 md:grid-cols-12 md:items-center md:gap-4">
-                <div className="col-span-1 font-mono text-[11px] uppercase tracking-widest text-primary/80">{r.year}</div>
+              <div
+                key={i}
+                className="grid grid-cols-1 gap-3 px-6 py-4 transition hover:bg-accent/20 md:grid-cols-12 md:items-center md:gap-4"
+              >
+                <div className="col-span-1 font-mono text-[11px] uppercase tracking-widest text-primary/80">
+                  {r.year}
+                </div>
                 <div className="col-span-2">
                   <p className="font-mono text-xs text-muted-foreground">{r.courseId}</p>
                   <p className="font-mono text-sm tracking-tight">{r.courseTitle}</p>
@@ -164,9 +181,13 @@ function Page() {
                           </button>
                         </HoverCardTrigger>
                         <HoverCardContent className="glass-strong w-80 border-border/60">
-                          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">{t.id} · {t.verb}</p>
+                          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">
+                            {t.id} · {t.verb}
+                          </p>
                           <h4 className="mt-1 font-mono text-sm">{t.title}</h4>
-                          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t.description}</p>
+                          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                            {t.description}
+                          </p>
                         </HoverCardContent>
                       </HoverCard>
                     );
@@ -174,7 +195,13 @@ function Page() {
                 </div>
                 <div className="col-span-2 flex flex-wrap gap-1">
                   {r.tags.map((tg) => (
-                    <Badge key={tg} variant="outline" className={`font-mono text-[10px] uppercase tracking-widest ${tagTone[tg] ?? ""}`}>{tg}</Badge>
+                    <Badge
+                      key={tg}
+                      variant="outline"
+                      className={`font-mono text-[10px] uppercase tracking-widest ${tagTone[tg] ?? ""}`}
+                    >
+                      {tg}
+                    </Badge>
                   ))}
                 </div>
               </div>
