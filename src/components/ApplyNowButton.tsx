@@ -8,14 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useForm } from "@tanstack/react-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ArrowUpRight, Loader2 } from "lucide-react";
-
-// Replace with your real Formspree endpoint.
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/your-id";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ApplyNowButtonProps {
   className?: string;
@@ -34,23 +33,35 @@ export function ApplyNowButton({
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSubmitting(true);
-    const formData = new FormData(e.currentTarget);
-    try {
-      await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
-      });
-      setDone(true);
-    } catch {
-      setDone(true);
-    } finally {
-      setSubmitting(false);
-    }
-  }
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      venture: "",
+    },
+    onSubmit: async ({ value }) => {
+      setSubmitting(true);
+      console.log(value);
+      try {
+        const { name, email, subject, venture } = value;
+        const { data, error } = await supabase.from("proposal").insert([
+          {
+            name,
+            email,
+            subject,
+            venture,
+          },
+        ]);
+        form.reset();
+        setDone(true);
+      } catch {
+        setDone(true);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
 
   return (
     <Dialog
@@ -90,40 +101,141 @@ export function ApplyNowButton({
             </p>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="space-y-3">
-            <div className="space-y-1.5">
-              <Label
-                htmlFor="name"
-                className="text-xs uppercase tracking-widest text-muted-foreground"
-              >
-                Full Name
-              </Label>
-              <Input id="name" name="name" required className="bg-background/40" />
-            </div>
-            <div className="space-y-1.5">
-              <Label
-                htmlFor="email"
-                className="text-xs uppercase tracking-widest text-muted-foreground"
-              >
-                Email
-              </Label>
-              <Input id="email" name="email" type="email" required className="bg-background/40" />
-            </div>
-            <div className="space-y-1.5">
-              <Label
-                htmlFor="venture"
-                className="text-xs uppercase tracking-widest text-muted-foreground"
-              >
-                Venture / Idea
-              </Label>
-              <Textarea
-                id="venture"
-                name="venture"
-                rows={3}
-                className="bg-background/40"
-                placeholder="What problem are you solving and what have you executed so far?"
-              />
-            </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+            className="space-y-3"
+          >
+            <form.Field
+              name="name"
+              validators={{
+                onChange: ({ value }) =>
+                  !value || !value.trim() ? "Full name is required" : undefined,
+              }}
+              children={(field) => (
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor={field.name}
+                    className="text-xs uppercase tracking-widest text-muted-foreground"
+                  >
+                    Full Name
+                  </Label>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    required
+                    className="bg-background/40"
+                  />
+                  {field.state.meta.isTouched && field.state.meta.errors.length ? (
+                    <p className="text-[11px] text-destructive font-mono">
+                      {field.state.meta.errors.join(", ")}
+                    </p>
+                  ) : null}
+                </div>
+              )}
+            />
+            <form.Field
+              name="email"
+              validators={{
+                onChange: ({ value }) =>
+                  !value || !value.trim() ? "Email is required" : undefined,
+              }}
+              children={(field) => (
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor={field.name}
+                    className="text-xs uppercase tracking-widest text-muted-foreground"
+                  >
+                    Email
+                  </Label>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    type="email"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    required
+                    className="bg-background/40"
+                  />
+                  {field.state.meta.isTouched && field.state.meta.errors.length ? (
+                    <p className="text-[11px] text-destructive font-mono">
+                      {field.state.meta.errors.join(", ")}
+                    </p>
+                  ) : null}
+                </div>
+              )}
+            />
+            <form.Field
+              name="subject"
+              validators={{
+                onChange: ({ value }) =>
+                  !value || !value.trim() ? "Full name is required" : undefined,
+              }}
+              children={(field) => (
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor={field.name}
+                    className="text-xs uppercase tracking-widest text-muted-foreground"
+                  >
+                    Subject
+                  </Label>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    required
+                    className="bg-background/40"
+                  />
+                  {field.state.meta.isTouched && field.state.meta.errors.length ? (
+                    <p className="text-[11px] text-destructive font-mono">
+                      {field.state.meta.errors.join(", ")}
+                    </p>
+                  ) : null}
+                </div>
+              )}
+            />
+            <form.Field
+              name="venture"
+              validators={{
+                onChange: ({ value }) =>
+                  !value || !value.trim() ? "Venture details are required" : undefined,
+              }}
+              children={(field) => (
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor={field.name}
+                    className="text-xs uppercase tracking-widest text-muted-foreground"
+                  >
+                    Venture / Idea
+                  </Label>
+                  <Textarea
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    required
+                    rows={3}
+                    className="bg-background/40"
+                    placeholder="What problem are you solving and what have you executed so far?"
+                  />
+                  {field.state.meta.isTouched && field.state.meta.errors.length ? (
+                    <p className="text-[11px] text-destructive font-mono">
+                      {field.state.meta.errors.join(", ")}
+                    </p>
+                  ) : null}
+                </div>
+              )}
+            />
             <DialogFooter>
               <Button
                 type="submit"
