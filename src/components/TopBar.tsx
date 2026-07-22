@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Search, Command } from "lucide-react";
+import { Search, Command, ArrowUpRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { TLOS, YEARS } from "@/lib/framework-data";
 import { SEMESTERS, WEEKS, TLOS_FULL } from "@/lib/full-syllabus-data";
 import { TLOS_EXT, COURSES_DESIGN } from "@/lib/tlo-extended";
-import { ApplyNowButton } from "./ApplyNowButton";
+import { Button } from "@/components/ui/button";
 
 type Hit = { kind: "TLO" | "Course" | "CLO" | "Page"; label: string; sub: string; to: string };
 
@@ -198,7 +198,17 @@ export function TopBar({ title, breadcrumb }: { title: string; breadcrumb?: stri
       </div>
       <div className="ml-auto flex items-center gap-3">
         <FrameworkSearch />
-        <ApplyNowButton size="sm" />
+
+        <Button
+          variant="default"
+          size="sm"
+          className={
+            "group bg-primary text-primary-foreground hover:bg-primary/90 font-mono uppercase tracking-[0.18em] text-[11px] "
+          }
+        >
+          View Proposal
+          <ArrowUpRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </Button>
       </div>
     </header>
   );
