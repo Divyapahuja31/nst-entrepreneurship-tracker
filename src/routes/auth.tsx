@@ -19,6 +19,7 @@ function AuthPage() {
   const { user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rollNo, setRollNo] = useState("");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -41,19 +42,16 @@ function AuthPage() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/` },
+      options: {
+        data: {
+          roll_no: rollNo.trim(),
+        },
+        emailRedirectTo: `${window.location.origin}/`,
+      },
     });
     setBusy(false);
     if (error) return toast.error(error.message);
     toast.success("Account created. You can sign in now.");
-  }
-
-  async function google() {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: window.location.origin },
-    });
-    if (error) toast.error("Google sign-in failed");
   }
 
   return (
@@ -107,6 +105,15 @@ function AuthPage() {
             <form onSubmit={signUp} className="space-y-3">
               <Field id="email2" label="Email" value={email} onChange={setEmail} type="email" />
               <Field
+                id="rollNo"
+                label="Roll No."
+                placeholder="e.g. 2024-B-16022006A"
+                value={rollNo}
+                onChange={setRollNo}
+                type="text"
+                required
+              />
+              <Field
                 id="pw2"
                 label="Password (8+ chars)"
                 value={password}
@@ -134,9 +141,6 @@ function AuthPage() {
           </span>
           <div className="h-px flex-1 bg-border/60" />
         </div>
-        <Button variant="outline" onClick={google} className="w-full font-mono text-xs">
-          Continue with Google
-        </Button>
 
         <Link
           to="/"
@@ -152,15 +156,19 @@ function AuthPage() {
 function Field({
   id,
   label,
+  placeholder,
   value,
   onChange,
   type,
+  required = true,
 }: {
   id: string;
   label: string;
+  placeholder?: string;
   value: string;
   onChange: (v: string) => void;
   type: string;
+  required?: boolean;
 }) {
   return (
     <div className="space-y-1.5">
@@ -173,9 +181,10 @@ function Field({
       <Input
         id={id}
         type={type}
+        placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        required
+        required={required}
         className="bg-background/40 font-mono text-sm"
       />
     </div>

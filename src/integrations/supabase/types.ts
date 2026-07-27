@@ -50,6 +50,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      proposal: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: number;
+          name: string;
+          status: string | null;
+          subject: string;
+          venture: string;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          id?: number;
+          name: string;
+          status?: string | null;
+          subject: string;
+          venture: string;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: number;
+          name?: string;
+          status?: string | null;
+          subject?: string;
+          venture?: string;
+        };
+        Relationships: [];
+      };
       user_roles: {
         Row: {
           created_at: string;
@@ -68,6 +98,150 @@ export type Database = {
           id?: string;
           role?: Database["public"]["Enums"]["app_role"];
           user_id?: string;
+        };
+        Relationships: [];
+      };
+      ventures: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          roll_no: string | null;
+          student_name: string;
+          subject: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          roll_no?: string | null;
+          student_name: string;
+          subject: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          roll_no?: string | null;
+          student_name?: string;
+          subject?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      venture_kpis: {
+        Row: {
+          id: string;
+          venture_id: string;
+          name: string;
+          obtain_grade: string;
+          total_grade: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          venture_id: string;
+          name: string;
+          obtain_grade: string;
+          total_grade?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          venture_id?: string;
+          name?: string;
+          obtain_grade?: string;
+          total_grade?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      kpi_subcategories: {
+        Row: {
+          id: string;
+          kpi_id: string;
+          name: string;
+          obtain_grade: string;
+          total_grade: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          kpi_id: string;
+          name: string;
+          obtain_grade: string;
+          total_grade?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          kpi_id?: string;
+          name?: string;
+          obtain_grade?: string;
+          total_grade?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      evaluations: {
+        Row: {
+          id: string;
+          student_id: string | null;
+          evaluator_id: string | null;
+          course_id: string;
+          rubric_scores: Json;
+          feedback: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id?: string | null;
+          evaluator_id?: string | null;
+          course_id: string;
+          rubric_scores?: Json;
+          feedback?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          student_id?: string | null;
+          evaluator_id?: string | null;
+          course_id?: string;
+          rubric_scores?: Json;
+          feedback?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      residency_applications: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          venture_name: string;
+          stage: string;
+          description: string | null;
+          status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          venture_name: string;
+          stage?: string;
+          description?: string | null;
+          status?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          venture_name?: string;
+          stage?: string;
+          description?: string | null;
+          status?: string;
+          created_at?: string;
         };
         Relationships: [];
       };

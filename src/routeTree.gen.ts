@@ -14,10 +14,13 @@ import { Route as SyllabusOverviewRouteImport } from './routes/syllabus-overview
 import { Route as SyllabusRouteImport } from './routes/syllabus'
 import { Route as StartupResidencyRouteImport } from './routes/startup-residency'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as ResultRouteImport } from './routes/result'
+import { Route as ProposalRouteImport } from './routes/proposal'
 import { Route as ProgramGovernanceRouteImport } from './routes/program-governance'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as OutcomesRouteImport } from './routes/outcomes'
 import { Route as MentorFrameworkRouteImport } from './routes/mentor-framework'
+import { Route as ManageResultRouteImport } from './routes/manageResult'
 import { Route as IndustryReadinessRouteImport } from './routes/industry-readiness'
 import { Route as IndustryPartnerRouteImport } from './routes/industry-partner'
 import { Route as FounderReviewRouteImport } from './routes/founder-review'
@@ -55,6 +58,16 @@ const RoadmapRoute = RoadmapRouteImport.update({
   path: '/roadmap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResultRoute = ResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProposalRoute = ProposalRouteImport.update({
+  id: '/proposal',
+  path: '/proposal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgramGovernanceRoute = ProgramGovernanceRouteImport.update({
   id: '/program-governance',
   path: '/program-governance',
@@ -73,6 +86,11 @@ const OutcomesRoute = OutcomesRouteImport.update({
 const MentorFrameworkRoute = MentorFrameworkRouteImport.update({
   id: '/mentor-framework',
   path: '/mentor-framework',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManageResultRoute = ManageResultRouteImport.update({
+  id: '/manageResult',
+  path: '/manageResult',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndustryReadinessRoute = IndustryReadinessRouteImport.update({
@@ -142,10 +160,13 @@ export interface FileRoutesByFullPath {
   '/founder-review': typeof FounderReviewRoute
   '/industry-partner': typeof IndustryPartnerRoute
   '/industry-readiness': typeof IndustryReadinessRoute
+  '/manageResult': typeof ManageResultRoute
   '/mentor-framework': typeof MentorFrameworkRoute
   '/outcomes': typeof OutcomesRoute
   '/philosophy': typeof PhilosophyRoute
   '/program-governance': typeof ProgramGovernanceRoute
+  '/proposal': typeof ProposalRoute
+  '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
@@ -164,10 +185,13 @@ export interface FileRoutesByTo {
   '/founder-review': typeof FounderReviewRoute
   '/industry-partner': typeof IndustryPartnerRoute
   '/industry-readiness': typeof IndustryReadinessRoute
+  '/manageResult': typeof ManageResultRoute
   '/mentor-framework': typeof MentorFrameworkRoute
   '/outcomes': typeof OutcomesRoute
   '/philosophy': typeof PhilosophyRoute
   '/program-governance': typeof ProgramGovernanceRoute
+  '/proposal': typeof ProposalRoute
+  '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
@@ -187,10 +211,13 @@ export interface FileRoutesById {
   '/founder-review': typeof FounderReviewRoute
   '/industry-partner': typeof IndustryPartnerRoute
   '/industry-readiness': typeof IndustryReadinessRoute
+  '/manageResult': typeof ManageResultRoute
   '/mentor-framework': typeof MentorFrameworkRoute
   '/outcomes': typeof OutcomesRoute
   '/philosophy': typeof PhilosophyRoute
   '/program-governance': typeof ProgramGovernanceRoute
+  '/proposal': typeof ProposalRoute
+  '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
@@ -211,10 +238,13 @@ export interface FileRouteTypes {
     | '/founder-review'
     | '/industry-partner'
     | '/industry-readiness'
+    | '/manageResult'
     | '/mentor-framework'
     | '/outcomes'
     | '/philosophy'
     | '/program-governance'
+    | '/proposal'
+    | '/result'
     | '/roadmap'
     | '/startup-residency'
     | '/syllabus'
@@ -233,10 +263,13 @@ export interface FileRouteTypes {
     | '/founder-review'
     | '/industry-partner'
     | '/industry-readiness'
+    | '/manageResult'
     | '/mentor-framework'
     | '/outcomes'
     | '/philosophy'
     | '/program-governance'
+    | '/proposal'
+    | '/result'
     | '/roadmap'
     | '/startup-residency'
     | '/syllabus'
@@ -255,10 +288,13 @@ export interface FileRouteTypes {
     | '/founder-review'
     | '/industry-partner'
     | '/industry-readiness'
+    | '/manageResult'
     | '/mentor-framework'
     | '/outcomes'
     | '/philosophy'
     | '/program-governance'
+    | '/proposal'
+    | '/result'
     | '/roadmap'
     | '/startup-residency'
     | '/syllabus'
@@ -278,10 +314,13 @@ export interface RootRouteChildren {
   FounderReviewRoute: typeof FounderReviewRoute
   IndustryPartnerRoute: typeof IndustryPartnerRoute
   IndustryReadinessRoute: typeof IndustryReadinessRoute
+  ManageResultRoute: typeof ManageResultRoute
   MentorFrameworkRoute: typeof MentorFrameworkRoute
   OutcomesRoute: typeof OutcomesRoute
   PhilosophyRoute: typeof PhilosophyRoute
   ProgramGovernanceRoute: typeof ProgramGovernanceRoute
+  ProposalRoute: typeof ProposalRoute
+  ResultRoute: typeof ResultRoute
   RoadmapRoute: typeof RoadmapRoute
   StartupResidencyRoute: typeof StartupResidencyRoute
   SyllabusRoute: typeof SyllabusRoute
@@ -327,6 +366,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoadmapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/result': {
+      id: '/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proposal': {
+      id: '/proposal'
+      path: '/proposal'
+      fullPath: '/proposal'
+      preLoaderRoute: typeof ProposalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/program-governance': {
       id: '/program-governance'
       path: '/program-governance'
@@ -353,6 +406,13 @@ declare module '@tanstack/react-router' {
       path: '/mentor-framework'
       fullPath: '/mentor-framework'
       preLoaderRoute: typeof MentorFrameworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manageResult': {
+      id: '/manageResult'
+      path: '/manageResult'
+      fullPath: '/manageResult'
+      preLoaderRoute: typeof ManageResultRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industry-readiness': {
@@ -446,10 +506,13 @@ const rootRouteChildren: RootRouteChildren = {
   FounderReviewRoute: FounderReviewRoute,
   IndustryPartnerRoute: IndustryPartnerRoute,
   IndustryReadinessRoute: IndustryReadinessRoute,
+  ManageResultRoute: ManageResultRoute,
   MentorFrameworkRoute: MentorFrameworkRoute,
   OutcomesRoute: OutcomesRoute,
   PhilosophyRoute: PhilosophyRoute,
   ProgramGovernanceRoute: ProgramGovernanceRoute,
+  ProposalRoute: ProposalRoute,
+  ResultRoute: ResultRoute,
   RoadmapRoute: RoadmapRoute,
   StartupResidencyRoute: StartupResidencyRoute,
   SyllabusRoute: SyllabusRoute,

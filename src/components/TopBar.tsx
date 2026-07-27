@@ -207,7 +207,7 @@ export function TopBar({ title, breadcrumb }: { title: string; breadcrumb?: stri
           className={
             "group bg-primary text-primary-foreground hover:bg-primary/90 font-mono uppercase tracking-[0.18em] text-[11px] "
           }
-          onClick={()=>{
+          onClick={() => {
             navigate({ to: "/proposal" });
           }}
         >
