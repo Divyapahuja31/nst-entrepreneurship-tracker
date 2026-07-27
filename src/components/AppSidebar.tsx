@@ -34,6 +34,7 @@ import {
   Handshake,
   Building2,
   CalendarClock,
+  Camera,
 } from "lucide-react";
 import { ApplyNowButton } from "./ApplyNowButton";
 import { useAuth } from "@/lib/auth";
@@ -195,6 +196,25 @@ export function AppSidebar() {
                   </Badge>
                 )}
               </div>
+
+              {isSuperAdmin || isAdmin ? (
+                <Link
+                  to="/manageResult"
+                  className="flex items-center gap-2 h-7 w-full justify-start px-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground"
+                >
+                  <Camera className="mr-2 h-3 w-3 text-primary" />
+                  Manage Result
+                </Link>
+              ) : (
+                <Link
+                  to="/result"
+                  className="flex items-center gap-2 h-7 w-full justify-start px-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground"
+                >
+                  <Camera className="mr-2 h-3 w-3 text-primary" />
+                  View Result
+                </Link>
+              )}
+
               <Button
                 variant="ghost"
                 size="sm"

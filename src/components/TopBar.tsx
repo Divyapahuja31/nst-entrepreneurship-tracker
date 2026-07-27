@@ -180,6 +180,8 @@ export function FrameworkSearch() {
 }
 
 export function TopBar({ title, breadcrumb }: { title: string; breadcrumb?: string }) {
+  const navigate = useNavigate();
+
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-border/60 bg-background/70 px-4 backdrop-blur-xl">
       <div className="flex items-baseline gap-2">
@@ -205,6 +207,9 @@ export function TopBar({ title, breadcrumb }: { title: string; breadcrumb?: stri
           className={
             "group bg-primary text-primary-foreground hover:bg-primary/90 font-mono uppercase tracking-[0.18em] text-[11px] "
           }
+          onClick={() => {
+            navigate({ to: "/proposal" });
+          }}
         >
           View Proposal
           <ArrowUpRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

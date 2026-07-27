@@ -1,6 +1,11 @@
 import { useMemo, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/auth";
+import { toast } from "sonner";
+import { Save, Loader2 } from "lucide-react";
 
 type Assessment = { name: string; weight: number };
 type Band = { label: string; min: number; max: number; tone: string; advice: string };
@@ -54,7 +59,15 @@ function bandFor(score: number) {
   return BANDS.find((b) => score >= b.min && score <= b.max) ?? BANDS[0];
 }
 
-export function RubricGrader({ assessments }: { assessments: Assessment[] }) {
+export function RubricGrader({
+  assessments,
+  courseId = "default-course",
+}: {
+  assessments: Assessment[];
+  courseId?: string;
+}) {
+  const { user } = useAuth();
+  const [saving, setSaving] = useState(false);
   const [scores, setScores] = useState<Record<string, number>>(() =>
     Object.fromEntries(assessments.map((a) => [a.name, 65])),
   );
@@ -66,6 +79,31 @@ export function RubricGrader({ assessments }: { assessments: Assessment[] }) {
   }, [scores, assessments, totalWeight]);
 
   const band = bandFor(Math.round(weighted));
+
+  const handleSaveEvaluation = async () => {
+    setSaving(true);
+    try {
+      const { error } = await supabase.from("evaluations").insert([
+        {
+          course_id: courseId,
+          evaluator_id: user?.id || null,
+          rubric_scores: scores,
+          feedback: `Projected Band: ${band.label} (${Math.round(weighted)}/100). ${band.advice}`,
+        },
+      ]);
+
+      if (error) {
+        toast.error(`Error saving evaluation: ${error.message}`);
+      } else {
+        toast.success("Evaluation rubric saved to Supabase!");
+      }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      toast.error(message || "Failed to save evaluation");
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div className="glass-strong rounded-2xl p-5">
@@ -119,9 +157,26 @@ export function RubricGrader({ assessments }: { assessments: Assessment[] }) {
         })}
       </div>
 
-      <div className="mt-5 rounded-lg border border-border/40 bg-background/30 p-3">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-primary">Faculty note</p>
-        <p className="mt-1 text-xs">{band.advice}</p>
+      <div className="mt-5 flex items-center justify-between gap-3 rounded-lg border border-border/40 bg-background/30 p-3">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-primary">
+            Faculty note
+          </p>
+          <p className="mt-1 text-xs">{band.advice}</p>
+        </div>
+        <Button
+          onClick={handleSaveEvaluation}
+          disabled={saving}
+          size="sm"
+          className="font-mono text-xs border-primary/30"
+        >
+          {saving ? (
+            <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+          ) : (
+            <Save className="mr-1.5 h-3.5 w-3.5" />
+          )}
+          Save Grade
+        </Button>
       </div>
     </div>
   );
