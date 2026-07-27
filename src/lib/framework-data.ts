@@ -48,13 +48,76 @@ export const TLOS = [
 export type TLOId = (typeof TLOS)[number]["id"];
 
 export const FAILURE_PATTERNS: { cluster: string; items: string[] }[] = [
-  { cluster: "Ideation", items: ["Solving non-problems", "Feature-first thinking", "No ICP clarity", "Weak problem definition", "Building without validation"] },
-  { cluster: "Product", items: ["Feature dumping", "No onboarding thinking", "Poor retention systems", "No user journey mapping", "Confusing UX"] },
-  { cluster: "GTM", items: ["No customer acquisition strategy", "Confusing CAC assumptions", "Weak organic acquisition", "Poor community strategy", "No positioning clarity"] },
-  { cluster: "Metrics", items: ["Vanity metrics", "Fake traction interpretation", "No retention analysis", "No activation analysis", "No funnel understanding"] },
-  { cluster: "Founder", items: ["Poor communication", "Weak execution consistency", "Team confusion", "Lack of accountability", "No prioritization ability"] },
-  { cluster: "Pitching", items: ["Long explanations", "No structured storytelling", "No market understanding", "No pricing understanding", "No competitive differentiation"] },
-  { cluster: "Operational", items: ["No task ownership", "Weak documentation", "Poor execution cadence", "No iteration systems", "No sprint structure"] },
+  {
+    cluster: "Ideation",
+    items: [
+      "Solving non-problems",
+      "Feature-first thinking",
+      "No ICP clarity",
+      "Weak problem definition",
+      "Building without validation",
+    ],
+  },
+  {
+    cluster: "Product",
+    items: [
+      "Feature dumping",
+      "No onboarding thinking",
+      "Poor retention systems",
+      "No user journey mapping",
+      "Confusing UX",
+    ],
+  },
+  {
+    cluster: "GTM",
+    items: [
+      "No customer acquisition strategy",
+      "Confusing CAC assumptions",
+      "Weak organic acquisition",
+      "Poor community strategy",
+      "No positioning clarity",
+    ],
+  },
+  {
+    cluster: "Metrics",
+    items: [
+      "Vanity metrics",
+      "Fake traction interpretation",
+      "No retention analysis",
+      "No activation analysis",
+      "No funnel understanding",
+    ],
+  },
+  {
+    cluster: "Founder",
+    items: [
+      "Poor communication",
+      "Weak execution consistency",
+      "Team confusion",
+      "Lack of accountability",
+      "No prioritization ability",
+    ],
+  },
+  {
+    cluster: "Pitching",
+    items: [
+      "Long explanations",
+      "No structured storytelling",
+      "No market understanding",
+      "No pricing understanding",
+      "No competitive differentiation",
+    ],
+  },
+  {
+    cluster: "Operational",
+    items: [
+      "No task ownership",
+      "Weak documentation",
+      "Poor execution cadence",
+      "No iteration systems",
+      "No sprint structure",
+    ],
+  },
 ];
 
 export type Course = {
@@ -62,7 +125,14 @@ export type Course = {
   title: string;
   topics: string[];
   execution: string[];
-  tags: ("High Intensity" | "Market Facing" | "Technical Engineering" | "Strategic" | "Operational" | "Ethical")[];
+  tags: (
+    | "High Intensity"
+    | "Market Facing"
+    | "Technical Engineering"
+    | "Strategic"
+    | "Operational"
+    | "Ethical"
+  )[];
   clos: { id: string; statement: string; tlos: TLOId[] }[];
 };
 
@@ -79,51 +149,125 @@ export const YEARS: {
     key: "Year 1",
     layer: "Foundation Layer",
     tagline: "Problem discovery, customer behavior, MVP fundamentals.",
-    highlights: ["50+ Customer Interviews", "Problem Discovery", "First MVP Launch", "Live Acquisition Campaign"],
+    highlights: [
+      "50+ Customer Interviews",
+      "Problem Discovery",
+      "First MVP Launch",
+      "Live Acquisition Campaign",
+    ],
     courses: [
       {
         id: "C1",
         title: "Introduction to Entrepreneurship & Startup Systems",
-        topics: ["Startup ecosystem mapping", "Founder psychology", "Startup lifecycle", "Idea vs execution", "Market observation"],
+        topics: [
+          "Startup ecosystem mapping",
+          "Founder psychology",
+          "Startup lifecycle",
+          "Idea vs execution",
+          "Market observation",
+        ],
         execution: ["Founder interviews", "Problem observation logs", "Reflection journals"],
         tags: ["Strategic"],
         clos: [
-          { id: "CLO-1", statement: "Explain startup models, lifecycles, and founder archetypes via structured analysis.", tlos: ["TLO-1", "TLO-5"] },
-          { id: "CLO-2", statement: "Identify operational inefficiencies and market gaps through structured observation.", tlos: ["TLO-1", "TLO-6"] },
-          { id: "CLO-3", statement: "Differentiate idea quality from execution quality when evaluating opportunities.", tlos: ["TLO-1"] },
+          {
+            id: "CLO-1",
+            statement:
+              "Explain startup models, lifecycles, and founder archetypes via structured analysis.",
+            tlos: ["TLO-1", "TLO-5"],
+          },
+          {
+            id: "CLO-2",
+            statement:
+              "Identify operational inefficiencies and market gaps through structured observation.",
+            tlos: ["TLO-1", "TLO-6"],
+          },
+          {
+            id: "CLO-3",
+            statement:
+              "Differentiate idea quality from execution quality when evaluating opportunities.",
+            tlos: ["TLO-1"],
+          },
         ],
       },
       {
         id: "C2",
         title: "Problem Discovery & Customer Behavior",
-        topics: ["ICP", "User psychology", "Customer interviews", "Behavioral research", "Validation systems", "Research bias"],
-        execution: ["50 customer interviews", "Problem validation report", "Behavioral observation assignment"],
+        topics: [
+          "ICP",
+          "User psychology",
+          "Customer interviews",
+          "Behavioral research",
+          "Validation systems",
+          "Research bias",
+        ],
+        execution: [
+          "50 customer interviews",
+          "Problem validation report",
+          "Behavioral observation assignment",
+        ],
         tags: ["High Intensity", "Market Facing"],
         clos: [
-          { id: "CLO-1", statement: "Conduct customer interviews and extract actionable operational insights.", tlos: ["TLO-1", "TLO-5"] },
-          { id: "CLO-2", statement: "Map ICPs and behavioral profiles using primary research.", tlos: ["TLO-1"] },
+          {
+            id: "CLO-1",
+            statement: "Conduct customer interviews and extract actionable operational insights.",
+            tlos: ["TLO-1", "TLO-5"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Map ICPs and behavioral profiles using primary research.",
+            tlos: ["TLO-1"],
+          },
         ],
       },
       {
         id: "C3",
         title: "MVP Design & Product Thinking",
-        topics: ["MVP philosophy", "UX basics", "User journey", "Onboarding", "Retention basics", "No-code & AI-assisted design"],
+        topics: [
+          "MVP philosophy",
+          "UX basics",
+          "User journey",
+          "Onboarding",
+          "Retention basics",
+          "No-code & AI-assisted design",
+        ],
         execution: ["Build MVP", "User onboarding testing", "Product iteration cycles"],
         tags: ["Technical Engineering"],
         clos: [
-          { id: "CLO-1", statement: "Design MVPs with clear user journeys and onboarding loops.", tlos: ["TLO-2"] },
-          { id: "CLO-2", statement: "Run product iteration cycles based on user feedback.", tlos: ["TLO-2", "TLO-3"] },
+          {
+            id: "CLO-1",
+            statement: "Design MVPs with clear user journeys and onboarding loops.",
+            tlos: ["TLO-2"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Run product iteration cycles based on user feedback.",
+            tlos: ["TLO-2", "TLO-3"],
+          },
         ],
       },
       {
         id: "C4",
         title: "GTM Fundamentals & Community Building",
-        topics: ["Customer acquisition", "Distribution", "Organic marketing", "Community building", "Funnel basics"],
+        topics: [
+          "Customer acquisition",
+          "Distribution",
+          "Organic marketing",
+          "Community building",
+          "Funnel basics",
+        ],
         execution: ["Run live campaign", "User acquisition sprint", "Activation analysis"],
         tags: ["Market Facing"],
         clos: [
-          { id: "CLO-1", statement: "Run live acquisition campaigns and measure activation.", tlos: ["TLO-3"] },
-          { id: "CLO-2", statement: "Design early community systems for organic distribution.", tlos: ["TLO-3", "TLO-5"] },
+          {
+            id: "CLO-1",
+            statement: "Run live acquisition campaigns and measure activation.",
+            tlos: ["TLO-3"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Design early community systems for organic distribution.",
+            tlos: ["TLO-3", "TLO-5"],
+          },
         ],
       },
     ],
@@ -132,28 +276,62 @@ export const YEARS: {
     key: "Year 2",
     layer: "Execution Layer",
     tagline: "Analytics, product ops, sales simulations, founder communication.",
-    highlights: ["Sales Simulations", "Product Ops Sprints", "Founder Standups", "Mock Investor Pitches"],
+    highlights: [
+      "Sales Simulations",
+      "Product Ops Sprints",
+      "Founder Standups",
+      "Mock Investor Pitches",
+    ],
     courses: [
       {
         id: "C5",
         title: "Startup Analytics & Metrics",
-        topics: ["CAC", "LTV", "Retention", "Funnel analysis", "Cohort analysis", "Operational dashboards"],
+        topics: [
+          "CAC",
+          "LTV",
+          "Retention",
+          "Funnel analysis",
+          "Cohort analysis",
+          "Operational dashboards",
+        ],
         execution: ["Build dashboard", "Analyze startup metrics", "Retention experiments"],
         tags: ["Technical Engineering", "Operational"],
         clos: [
-          { id: "CLO-1", statement: "Analyze funnel metrics and identify acquisition bottlenecks.", tlos: ["TLO-3", "TLO-4"] },
-          { id: "CLO-2", statement: "Build operational dashboards for retention and cohort tracking.", tlos: ["TLO-4"] },
+          {
+            id: "CLO-1",
+            statement: "Analyze funnel metrics and identify acquisition bottlenecks.",
+            tlos: ["TLO-3", "TLO-4"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Build operational dashboards for retention and cohort tracking.",
+            tlos: ["TLO-4"],
+          },
         ],
       },
       {
         id: "C6",
         title: "Product Operations & Systems Management",
-        topics: ["Sprint systems", "Team management", "Startup workflows", "Documentation", "Execution cadences"],
+        topics: [
+          "Sprint systems",
+          "Team management",
+          "Startup workflows",
+          "Documentation",
+          "Execution cadences",
+        ],
         execution: ["Team sprint cycles", "Weekly execution reviews", "Founder standups"],
         tags: ["Operational", "High Intensity"],
         clos: [
-          { id: "CLO-1", statement: "Operate weekly sprint cycles with measurable cadence.", tlos: ["TLO-4"] },
-          { id: "CLO-2", statement: "Maintain documentation and execution traceability.", tlos: ["TLO-4", "TLO-6"] },
+          {
+            id: "CLO-1",
+            statement: "Operate weekly sprint cycles with measurable cadence.",
+            tlos: ["TLO-4"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Maintain documentation and execution traceability.",
+            tlos: ["TLO-4", "TLO-6"],
+          },
         ],
       },
       {
@@ -163,19 +341,41 @@ export const YEARS: {
         execution: ["Investor mock pitches", "Founder reviews", "Ecosystem presentations"],
         tags: ["Strategic", "Market Facing"],
         clos: [
-          { id: "CLO-1", statement: "Deliver structured investor pitches with evidence-backed reasoning.", tlos: ["TLO-5"] },
-          { id: "CLO-2", statement: "Communicate operational insights to mentors and stakeholders.", tlos: ["TLO-5"] },
+          {
+            id: "CLO-1",
+            statement: "Deliver structured investor pitches with evidence-backed reasoning.",
+            tlos: ["TLO-5"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Communicate operational insights to mentors and stakeholders.",
+            tlos: ["TLO-5"],
+          },
         ],
       },
       {
         id: "C8",
         title: "Sales, Negotiation & Customer Conversion",
-        topics: ["B2B sales", "B2C conversion", "Negotiation", "Customer objections", "Trust systems"],
+        topics: [
+          "B2B sales",
+          "B2C conversion",
+          "Negotiation",
+          "Customer objections",
+          "Trust systems",
+        ],
         execution: ["Live outreach", "Sales simulations", "Conversion analysis"],
         tags: ["High Intensity", "Market Facing"],
         clos: [
-          { id: "CLO-1", statement: "Run live sales outreach and convert qualified prospects.", tlos: ["TLO-3", "TLO-5"] },
-          { id: "CLO-2", statement: "Negotiate and handle objections in simulated deal cycles.", tlos: ["TLO-5"] },
+          {
+            id: "CLO-1",
+            statement: "Run live sales outreach and convert qualified prospects.",
+            tlos: ["TLO-3", "TLO-5"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Negotiate and handle objections in simulated deal cycles.",
+            tlos: ["TLO-5"],
+          },
         ],
       },
     ],
@@ -184,23 +384,48 @@ export const YEARS: {
     key: "Year 3",
     layer: "Scaling Layer",
     tagline: "Finance, growth engineering, fundraising, governance.",
-    highlights: ["Viral Growth Loops", "Fundraising Simulations", "Pricing Models", "Governance Cases"],
+    highlights: [
+      "Viral Growth Loops",
+      "Fundraising Simulations",
+      "Pricing Models",
+      "Governance Cases",
+    ],
     courses: [
       {
         id: "C9",
         title: "Startup Finance & Business Models",
-        topics: ["Pricing systems", "Unit economics", "Burn rate", "Revenue systems", "Financial planning"],
+        topics: [
+          "Pricing systems",
+          "Unit economics",
+          "Burn rate",
+          "Revenue systems",
+          "Financial planning",
+        ],
         execution: ["Build startup financial model", "Pricing simulations"],
         tags: ["Strategic", "Operational"],
         clos: [
-          { id: "CLO-1", statement: "Build a unit-economics-based financial model.", tlos: ["TLO-4"] },
-          { id: "CLO-2", statement: "Run pricing experiments grounded in market evidence.", tlos: ["TLO-3", "TLO-4"] },
+          {
+            id: "CLO-1",
+            statement: "Build a unit-economics-based financial model.",
+            tlos: ["TLO-4"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Run pricing experiments grounded in market evidence.",
+            tlos: ["TLO-3", "TLO-4"],
+          },
         ],
       },
       {
         id: "C10",
         title: "Growth Engineering & Scale Systems",
-        topics: ["Viral systems", "Growth loops", "Automation", "AI workflows", "Operational scale"],
+        topics: [
+          "Viral systems",
+          "Growth loops",
+          "Automation",
+          "AI workflows",
+          "Operational scale",
+        ],
         execution: ["Growth experiments", "Automation workflows", "Referral systems"],
         tags: ["Technical Engineering", "High Intensity"],
         clos: [
@@ -211,23 +436,52 @@ export const YEARS: {
       {
         id: "C11",
         title: "Venture Ecosystem & Fundraising",
-        topics: ["Accelerators", "VC", "Angel investors", "Fundraising psychology", "Due diligence"],
+        topics: [
+          "Accelerators",
+          "VC",
+          "Angel investors",
+          "Fundraising psychology",
+          "Due diligence",
+        ],
         execution: ["Fundraising simulations", "Investor memos", "Demo day prep"],
         tags: ["Strategic", "Market Facing"],
         clos: [
-          { id: "CLO-1", statement: "Prepare investor memos and run fundraising simulations.", tlos: ["TLO-5"] },
-          { id: "CLO-2", statement: "Navigate diligence with operational evidence.", tlos: ["TLO-4", "TLO-5"] },
+          {
+            id: "CLO-1",
+            statement: "Prepare investor memos and run fundraising simulations.",
+            tlos: ["TLO-5"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Navigate diligence with operational evidence.",
+            tlos: ["TLO-4", "TLO-5"],
+          },
         ],
       },
       {
         id: "C12",
         title: "Startup Law, Ethics & Governance",
-        topics: ["Founder ethics", "Governance", "Compliance", "Contracts", "Responsible AI", "User protection"],
+        topics: [
+          "Founder ethics",
+          "Governance",
+          "Compliance",
+          "Contracts",
+          "Responsible AI",
+          "User protection",
+        ],
         execution: ["Case studies", "Governance simulations"],
         tags: ["Ethical"],
         clos: [
-          { id: "CLO-1", statement: "Apply ethical and governance frameworks to startup decisions.", tlos: ["TLO-6"] },
-          { id: "CLO-2", statement: "Design responsible AI and data-handling practices.", tlos: ["TLO-6"] },
+          {
+            id: "CLO-1",
+            statement: "Apply ethical and governance frameworks to startup decisions.",
+            tlos: ["TLO-6"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Design responsible AI and data-handling practices.",
+            tlos: ["TLO-6"],
+          },
         ],
       },
     ],
@@ -236,7 +490,12 @@ export const YEARS: {
     key: "Year 4",
     layer: "Real-World Execution Layer",
     tagline: "Founder residency and venture thesis defense.",
-    highlights: ["Founder Residency", "Venture Thesis Defense", "Operational KPIs", "Mentor Reviews"],
+    highlights: [
+      "Founder Residency",
+      "Venture Thesis Defense",
+      "Operational KPIs",
+      "Mentor Reviews",
+    ],
     courses: [
       {
         id: "C13",
@@ -245,19 +504,40 @@ export const YEARS: {
         execution: ["Execution logs", "Mentor reviews", "Operational KPIs", "Founder growth"],
         tags: ["High Intensity", "Market Facing", "Operational"],
         clos: [
-          { id: "CLO-1", statement: "Operate inside a real venture and report measurable progress.", tlos: ["TLO-4", "TLO-5"] },
-          { id: "CLO-2", statement: "Demonstrate founder-level decision-making under uncertainty.", tlos: ["TLO-1", "TLO-4"] },
+          {
+            id: "CLO-1",
+            statement: "Operate inside a real venture and report measurable progress.",
+            tlos: ["TLO-4", "TLO-5"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Demonstrate founder-level decision-making under uncertainty.",
+            tlos: ["TLO-1", "TLO-4"],
+          },
         ],
       },
       {
         id: "C14",
         title: "Venture Thesis / Startup Defense (Semester 8)",
-        topics: ["Defend startup systems", "Defend products", "Defend GTM systems", "Execution theses"],
+        topics: [
+          "Defend startup systems",
+          "Defend products",
+          "Defend GTM systems",
+          "Execution theses",
+        ],
         execution: ["Live cross-questioning", "Execution traceability review"],
         tags: ["Strategic", "High Intensity"],
         clos: [
-          { id: "CLO-1", statement: "Defend a venture thesis with execution evidence and systems thinking.", tlos: ["TLO-5", "TLO-1"] },
-          { id: "CLO-2", statement: "Demonstrate operational maturity and customer validation.", tlos: ["TLO-4", "TLO-2"] },
+          {
+            id: "CLO-1",
+            statement: "Defend a venture thesis with execution evidence and systems thinking.",
+            tlos: ["TLO-5", "TLO-1"],
+          },
+          {
+            id: "CLO-2",
+            statement: "Demonstrate operational maturity and customer validation.",
+            tlos: ["TLO-4", "TLO-2"],
+          },
         ],
       },
     ],

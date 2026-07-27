@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,8 +49,11 @@ function AuthPage() {
   }
 
   async function google() {
-    const r = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (r.error) toast.error("Google sign-in failed");
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    });
+    if (error) toast.error("Google sign-in failed");
   }
 
   return (
@@ -63,23 +65,40 @@ function AuthPage() {
             <Sparkles className="h-4 w-4 text-primary" />
           </div>
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">NST · 2026</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              NST · 2026
+            </p>
             <p className="font-mono text-sm">Master Framework Access</p>
           </div>
         </div>
 
         <Tabs defaultValue="signin">
           <TabsList className="grid w-full grid-cols-2 bg-background/40">
-            <TabsTrigger value="signin" className="font-mono text-xs">Sign in</TabsTrigger>
-            <TabsTrigger value="signup" className="font-mono text-xs">Create account</TabsTrigger>
+            <TabsTrigger value="signin" className="font-mono text-xs">
+              Sign in
+            </TabsTrigger>
+            <TabsTrigger value="signup" className="font-mono text-xs">
+              Create account
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="signin" className="mt-4">
             <form onSubmit={signIn} className="space-y-3">
               <Field id="email" label="Email" value={email} onChange={setEmail} type="email" />
-              <Field id="pw" label="Password" value={password} onChange={setPassword} type="password" />
-              <Button type="submit" disabled={busy} className="w-full font-mono text-xs uppercase tracking-widest">
-                <Lock className="mr-2 h-3.5 w-3.5" />{busy ? "Signing in…" : "Sign in"}
+              <Field
+                id="pw"
+                label="Password"
+                value={password}
+                onChange={setPassword}
+                type="password"
+              />
+              <Button
+                type="submit"
+                disabled={busy}
+                className="w-full font-mono text-xs uppercase tracking-widest"
+              >
+                <Lock className="mr-2 h-3.5 w-3.5" />
+                {busy ? "Signing in…" : "Sign in"}
               </Button>
             </form>
           </TabsContent>
@@ -87,33 +106,78 @@ function AuthPage() {
           <TabsContent value="signup" className="mt-4">
             <form onSubmit={signUp} className="space-y-3">
               <Field id="email2" label="Email" value={email} onChange={setEmail} type="email" />
-              <Field id="pw2" label="Password (8+ chars)" value={password} onChange={setPassword} type="password" />
-              <Button type="submit" disabled={busy} className="w-full font-mono text-xs uppercase tracking-widest">
+              <Field
+                id="pw2"
+                label="Password (8+ chars)"
+                value={password}
+                onChange={setPassword}
+                type="password"
+              />
+              <Button
+                type="submit"
+                disabled={busy}
+                className="w-full font-mono text-xs uppercase tracking-widest"
+              >
                 Create account
               </Button>
-              <p className="text-[10px] text-muted-foreground">Students get read-only access by default. Admins are seeded by the super admin.</p>
+              <p className="text-[10px] text-muted-foreground">
+                Students get read-only access by default. Admins are seeded by the super admin.
+              </p>
             </form>
           </TabsContent>
         </Tabs>
 
         <div className="my-5 flex items-center gap-3">
           <div className="h-px flex-1 bg-border/60" />
-          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">or</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            or
+          </span>
           <div className="h-px flex-1 bg-border/60" />
         </div>
-        <Button variant="outline" onClick={google} className="w-full font-mono text-xs">Continue with Google</Button>
+        <Button variant="outline" onClick={google} className="w-full font-mono text-xs">
+          Continue with Google
+        </Button>
 
-        <Link to="/" className="mt-5 block text-center font-mono text-[11px] text-muted-foreground hover:text-foreground">← Continue as student (read-only)</Link>
+        <Link
+          to="/"
+          className="mt-5 block text-center font-mono text-[11px] text-muted-foreground hover:text-foreground"
+        >
+          ← Continue as student (read-only)
+        </Link>
       </div>
     </main>
   );
 }
 
-function Field({ id, label, value, onChange, type }: { id: string; label: string; value: string; onChange: (v: string) => void; type: string }) {
+function Field({
+  id,
+  label,
+  value,
+  onChange,
+  type,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type: string;
+}) {
   return (
     <div className="space-y-1.5">
-      <Label htmlFor={id} className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</Label>
-      <Input id={id} type={type} value={value} onChange={(e) => onChange(e.target.value)} required className="bg-background/40 font-mono text-sm" />
+      <Label
+        htmlFor={id}
+        className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground"
+      >
+        {label}
+      </Label>
+      <Input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required
+        className="bg-background/40 font-mono text-sm"
+      />
     </div>
   );
 }

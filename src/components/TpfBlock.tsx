@@ -14,12 +14,22 @@ export function TpfBadge({ className }: { className?: string }) {
   );
 }
 
-export function TpfBlock({ children, label = "TPF Touchpoint", className }: { children: React.ReactNode; label?: string; className?: string }) {
+export function TpfBlock({
+  children,
+  label = "TPF Touchpoint",
+  className,
+}: {
+  children: React.ReactNode;
+  label?: string;
+  className?: string;
+}) {
   return (
     <div className={cn("rounded-lg border border-emerald-400/30 bg-emerald-500/10 p-3", className)}>
       <div className="mb-2 flex items-center gap-2">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-emerald-300">{label}</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-emerald-300">
+          {label}
+        </p>
       </div>
       <div className="text-xs text-emerald-50/90">{children}</div>
     </div>

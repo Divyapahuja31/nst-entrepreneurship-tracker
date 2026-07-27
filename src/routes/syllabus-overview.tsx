@@ -5,16 +5,28 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { Search, BookOpen, Layers, GitBranch } from "lucide-react";
 
 export const Route = createFileRoute("/syllabus-overview")({
   head: () => ({
     meta: [
       { title: "Syllabus Overview · TLO × CLO Matrix" },
-      { name: "description", content: "Full TLO + CLO mapping matrix for the NST Entrepreneurship Track." },
+      {
+        name: "description",
+        content: "Full TLO + CLO mapping matrix for the NST Entrepreneurship Track.",
+      },
       { property: "og:title", content: "Syllabus Overview — TLO × CLO Mapping Matrix" },
-      { property: "og:description", content: "Section 16 mapping matrix: 6 Track-Level Outcomes mapped to 16 Semester CLOs across 4 semesters." },
+      {
+        property: "og:description",
+        content:
+          "Section 16 mapping matrix: 6 Track-Level Outcomes mapped to 16 Semester CLOs across 4 semesters.",
+      },
     ],
   }),
   component: Page,
@@ -222,41 +234,93 @@ const COURSE_CLOS = [
   {
     id: "Course 1",
     title: "Entrepreneurship Fundamentals",
-    objective: "Establish founder mindset, ownership, and the structural logic of how ventures are built under uncertainty.",
+    objective:
+      "Establish founder mindset, ownership, and the structural logic of how ventures are built under uncertainty.",
     clos: [
-      { id: "CLO-1", text: "Articulate the difference between operator, founder, and intrapreneur mindsets.", tlos: ["TLO-1", "TLO-6"] as TLOId[] },
-      { id: "CLO-2", text: "Map venture lifecycle stages onto a real startup case study.", tlos: ["TLO-1", "TLO-5"] as TLOId[] },
-      { id: "CLO-3", text: "Demonstrate ownership through a founder commitment log over the semester.", tlos: ["TLO-1", "TLO-4"] as TLOId[] },
+      {
+        id: "CLO-1",
+        text: "Articulate the difference between operator, founder, and intrapreneur mindsets.",
+        tlos: ["TLO-1", "TLO-6"] as TLOId[],
+      },
+      {
+        id: "CLO-2",
+        text: "Map venture lifecycle stages onto a real startup case study.",
+        tlos: ["TLO-1", "TLO-5"] as TLOId[],
+      },
+      {
+        id: "CLO-3",
+        text: "Demonstrate ownership through a founder commitment log over the semester.",
+        tlos: ["TLO-1", "TLO-4"] as TLOId[],
+      },
     ],
   },
   {
     id: "Course 2",
     title: "Problem Discovery & Customer Behavior",
-    objective: "Develop the capability to identify, observe, and validate real customer problems through structured discovery.",
+    objective:
+      "Develop the capability to identify, observe, and validate real customer problems through structured discovery.",
     clos: [
-      { id: "CLO-1", text: "Conduct 25+ structured customer interviews and synthesize behavioral patterns.", tlos: ["TLO-2", "TLO-1"] as TLOId[] },
-      { id: "CLO-2", text: "Distinguish painkiller vs vitamin problems using evidence and ICP definition.", tlos: ["TLO-1", "TLO-2"] as TLOId[] },
-      { id: "CLO-3", text: "Produce a validated problem statement defended in a founder review.", tlos: ["TLO-2", "TLO-6"] as TLOId[] },
+      {
+        id: "CLO-1",
+        text: "Conduct 25+ structured customer interviews and synthesize behavioral patterns.",
+        tlos: ["TLO-2", "TLO-1"] as TLOId[],
+      },
+      {
+        id: "CLO-2",
+        text: "Distinguish painkiller vs vitamin problems using evidence and ICP definition.",
+        tlos: ["TLO-1", "TLO-2"] as TLOId[],
+      },
+      {
+        id: "CLO-3",
+        text: "Produce a validated problem statement defended in a founder review.",
+        tlos: ["TLO-2", "TLO-6"] as TLOId[],
+      },
     ],
   },
   {
     id: "Course 3",
     title: "MVP Design & Product Thinking",
-    objective: "Translate validated problems into scoped MVPs and iterate them through real user feedback loops.",
+    objective:
+      "Translate validated problems into scoped MVPs and iterate them through real user feedback loops.",
     clos: [
-      { id: "CLO-1", text: "Define MVP scope using must-have / excluded feature trade-offs.", tlos: ["TLO-2", "TLO-4"] as TLOId[] },
-      { id: "CLO-2", text: "Build and ship a usable MVP and capture structured user feedback.", tlos: ["TLO-2", "TLO-3"] as TLOId[] },
-      { id: "CLO-3", text: "Iterate the MVP across at least three documented learning cycles.", tlos: ["TLO-2", "TLO-5"] as TLOId[] },
+      {
+        id: "CLO-1",
+        text: "Define MVP scope using must-have / excluded feature trade-offs.",
+        tlos: ["TLO-2", "TLO-4"] as TLOId[],
+      },
+      {
+        id: "CLO-2",
+        text: "Build and ship a usable MVP and capture structured user feedback.",
+        tlos: ["TLO-2", "TLO-3"] as TLOId[],
+      },
+      {
+        id: "CLO-3",
+        text: "Iterate the MVP across at least three documented learning cycles.",
+        tlos: ["TLO-2", "TLO-5"] as TLOId[],
+      },
     ],
   },
   {
     id: "Course 4",
     title: "GTM Fundamentals & Community Building",
-    objective: "Operate early Go-To-Market motions, distribution experiments, and community-led acquisition systems.",
+    objective:
+      "Operate early Go-To-Market motions, distribution experiments, and community-led acquisition systems.",
     clos: [
-      { id: "CLO-1", text: "Run at least two distribution experiments and measure signal vs vanity outcomes.", tlos: ["TLO-3", "TLO-5"] as TLOId[] },
-      { id: "CLO-2", text: "Build positioning, messaging, and a working onboarding funnel.", tlos: ["TLO-3", "TLO-6"] as TLOId[] },
-      { id: "CLO-3", text: "Design and operate an early community or feedback loop for retention.", tlos: ["TLO-3", "TLO-4"] as TLOId[] },
+      {
+        id: "CLO-1",
+        text: "Run at least two distribution experiments and measure signal vs vanity outcomes.",
+        tlos: ["TLO-3", "TLO-5"] as TLOId[],
+      },
+      {
+        id: "CLO-2",
+        text: "Build positioning, messaging, and a working onboarding funnel.",
+        tlos: ["TLO-3", "TLO-6"] as TLOId[],
+      },
+      {
+        id: "CLO-3",
+        text: "Design and operate an early community or feedback loop for retention.",
+        tlos: ["TLO-3", "TLO-4"] as TLOId[],
+      },
     ],
   },
 ];
@@ -306,11 +370,16 @@ function Page() {
               <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
                 TLO × CLO Mapping Matrix
               </p>
-              <h2 className="font-mono text-xl tracking-tight">The complete outcome backbone of the track.</h2>
+              <h2 className="font-mono text-xl tracking-tight">
+                The complete outcome backbone of the track.
+              </h2>
               <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-                Sourced from <span className="text-foreground">Section 16 — Complete TLO → CLO → Weekly Session Mapping Matrix</span>, the
-                CLO Governance framework (Section 4), and per-course CLO definitions. Every CLO is traceable to one or
-                more Track-Level Outcomes.
+                Sourced from{" "}
+                <span className="text-foreground">
+                  Section 16 — Complete TLO → CLO → Weekly Session Mapping Matrix
+                </span>
+                , the CLO Governance framework (Section 4), and per-course CLO definitions. Every
+                CLO is traceable to one or more Track-Level Outcomes.
               </p>
             </div>
             <div className="relative w-full max-w-sm">
@@ -326,9 +395,17 @@ function Page() {
 
           <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
             <Stat label="Track-Level Outcomes" value="6" icon={<Layers className="h-4 w-4" />} />
-            <Stat label="Semester CLOs" value={String(totalCLOs)} icon={<GitBranch className="h-4 w-4" />} />
+            <Stat
+              label="Semester CLOs"
+              value={String(totalCLOs)}
+              icon={<GitBranch className="h-4 w-4" />}
+            />
             <Stat label="Semesters" value="4" icon={<BookOpen className="h-4 w-4" />} />
-            <Stat label="Course CLO Examples" value={String(COURSE_CLOS.length)} icon={<BookOpen className="h-4 w-4" />} />
+            <Stat
+              label="Course CLO Examples"
+              value={String(COURSE_CLOS.length)}
+              icon={<BookOpen className="h-4 w-4" />}
+            />
           </div>
         </section>
 
@@ -347,16 +424,25 @@ function Page() {
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">{t.id}</p>
-                    <Badge variant="outline" className="font-mono text-[10px] uppercase tracking-widest">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                      {t.id}
+                    </p>
+                    <Badge
+                      variant="outline"
+                      className="font-mono text-[10px] uppercase tracking-widest"
+                    >
                       {t.tag}
                     </Badge>
                   </div>
-                  <h3 className="mt-2 font-mono text-sm tracking-tight text-foreground">{t.title}</h3>
+                  <h3 className="mt-2 font-mono text-sm tracking-tight text-foreground">
+                    {t.title}
+                  </h3>
                   <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/70">
                     {t.verb}
                   </p>
-                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{t.description}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                    {t.description}
+                  </p>
                   <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-primary/70">
                     {active ? "Filtering matrix · click to clear" : "Click to filter matrix"}
                   </p>
@@ -369,18 +455,30 @@ function Page() {
         {/* Filters */}
         <section className="glass rounded-2xl p-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Scope</span>
-            <Chip active={semFilter === "ALL"} onClick={() => setSemFilter("ALL")}>All Semesters</Chip>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              Scope
+            </span>
+            <Chip active={semFilter === "ALL"} onClick={() => setSemFilter("ALL")}>
+              All Semesters
+            </Chip>
             {SEMESTER_CLOS.map((s) => (
               <Chip key={s.key} active={semFilter === s.key} onClick={() => setSemFilter(s.key)}>
                 {s.key}
               </Chip>
             ))}
             <span className="mx-2 h-4 w-px bg-border/60" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">TLO</span>
-            <Chip active={!tloFilter} onClick={() => setTloFilter(null)}>All</Chip>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              TLO
+            </span>
+            <Chip active={!tloFilter} onClick={() => setTloFilter(null)}>
+              All
+            </Chip>
             {TLO_DEFS.map((t) => (
-              <Chip key={t.id} active={tloFilter === t.id} onClick={() => setTloFilter(tloFilter === t.id ? null : t.id)}>
+              <Chip
+                key={t.id}
+                active={tloFilter === t.id}
+                onClick={() => setTloFilter(tloFilter === t.id ? null : t.id)}
+              >
                 {t.id}
               </Chip>
             ))}
@@ -393,10 +491,18 @@ function Page() {
         {/* Mapping matrix */}
         <Tabs defaultValue="matrix" className="space-y-4">
           <TabsList className="bg-background/40">
-            <TabsTrigger value="matrix" className="font-mono text-xs uppercase tracking-widest">Mapping Matrix</TabsTrigger>
-            <TabsTrigger value="semester" className="font-mono text-xs uppercase tracking-widest">By Semester</TabsTrigger>
-            <TabsTrigger value="courses" className="font-mono text-xs uppercase tracking-widest">Course CLO Examples</TabsTrigger>
-            <TabsTrigger value="governance" className="font-mono text-xs uppercase tracking-widest">Governance</TabsTrigger>
+            <TabsTrigger value="matrix" className="font-mono text-xs uppercase tracking-widest">
+              Mapping Matrix
+            </TabsTrigger>
+            <TabsTrigger value="semester" className="font-mono text-xs uppercase tracking-widest">
+              By Semester
+            </TabsTrigger>
+            <TabsTrigger value="courses" className="font-mono text-xs uppercase tracking-widest">
+              Course CLO Examples
+            </TabsTrigger>
+            <TabsTrigger value="governance" className="font-mono text-xs uppercase tracking-widest">
+              Governance
+            </TabsTrigger>
           </TabsList>
 
           {/* Matrix */}
@@ -406,7 +512,9 @@ function Page() {
                 <table className="w-full border-collapse text-sm">
                   <thead>
                     <tr className="border-b border-border/60 bg-background/40 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                      <th className="sticky left-0 z-10 bg-background/60 px-4 py-3 text-left">Semester / CLO</th>
+                      <th className="sticky left-0 z-10 bg-background/60 px-4 py-3 text-left">
+                        Semester / CLO
+                      </th>
                       <th className="px-4 py-3 text-left">Outcome</th>
                       {TLO_DEFS.map((t) => (
                         <th key={t.id} className="px-3 py-3 text-center">
@@ -415,9 +523,13 @@ function Page() {
                               <button className="font-mono">{t.id}</button>
                             </HoverCardTrigger>
                             <HoverCardContent className="glass-strong w-80 border-border/60">
-                              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">{t.id} · {t.verb}</p>
+                              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">
+                                {t.id} · {t.verb}
+                              </p>
                               <h4 className="mt-1 font-mono text-sm">{t.title}</h4>
-                              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t.description}</p>
+                              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                                {t.description}
+                              </p>
                             </HoverCardContent>
                           </HoverCard>
                         </th>
@@ -429,13 +541,18 @@ function Page() {
                       s.clos.length === 0 ? null : (
                         <>
                           <tr key={s.key + "-h"} className="border-b border-border/40 bg-primary/5">
-                            <td colSpan={2 + TLO_DEFS.length} className="px-4 py-2 font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                            <td
+                              colSpan={2 + TLO_DEFS.length}
+                              className="px-4 py-2 font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80"
+                            >
                               {s.label} — {s.focus}
                             </td>
                           </tr>
                           {s.clos.map((c) => (
                             <tr key={c.id} className="border-b border-border/40 hover:bg-accent/15">
-                              <td className="sticky left-0 z-10 bg-background/40 px-4 py-3 font-mono text-xs text-primary">{c.id}</td>
+                              <td className="sticky left-0 z-10 bg-background/40 px-4 py-3 font-mono text-xs text-primary">
+                                {c.id}
+                              </td>
                               <td className="px-4 py-3 text-foreground/90">{c.statement}</td>
                               {TLO_DEFS.map((t) => {
                                 const strength = c.mapping[t.id];
@@ -443,12 +560,14 @@ function Page() {
                                   <td key={t.id} className="px-3 py-3 text-center">
                                     {strength ? (
                                       <span
-                                        className={`inline-flex min-w-[64px] justify-center rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest ${STRENGTH_TONE[strength]}`}
+                                        className={`inline-flex min-w-16 justify-center rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest ${STRENGTH_TONE[strength]}`}
                                       >
                                         {strength}
                                       </span>
                                     ) : (
-                                      <span className="font-mono text-[10px] text-muted-foreground/40">·</span>
+                                      <span className="font-mono text-[10px] text-muted-foreground/40">
+                                        ·
+                                      </span>
                                     )}
                                   </td>
                                 );
@@ -460,7 +579,10 @@ function Page() {
                     )}
                     {shownCLOs === 0 && (
                       <tr>
-                        <td colSpan={2 + TLO_DEFS.length} className="px-4 py-10 text-center font-mono text-sm text-muted-foreground">
+                        <td
+                          colSpan={2 + TLO_DEFS.length}
+                          className="px-4 py-10 text-center font-mono text-sm text-muted-foreground"
+                        >
                           No CLOs match the current filter.
                         </td>
                       </tr>
@@ -485,16 +607,25 @@ function Page() {
                   <AccordionItem key={s.key} value={s.key} className="border-border/60">
                     <AccordionTrigger className="font-mono text-sm">
                       <div className="flex flex-col items-start">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">{s.label}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                          {s.label}
+                        </span>
                         <span className="text-foreground">{s.focus}</span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                         {s.clos.map((c) => (
-                          <div key={c.id} className="rounded-lg border border-border/60 bg-background/30 p-4">
-                            <p className="font-mono text-[11px] uppercase tracking-widest text-primary">{c.id}</p>
-                            <p className="mt-1 text-sm leading-relaxed text-foreground/90">{c.statement}</p>
+                          <div
+                            key={c.id}
+                            className="rounded-lg border border-border/60 bg-background/30 p-4"
+                          >
+                            <p className="font-mono text-[11px] uppercase tracking-widest text-primary">
+                              {c.id}
+                            </p>
+                            <p className="mt-1 text-sm leading-relaxed text-foreground/90">
+                              {c.statement}
+                            </p>
                             <div className="mt-3 flex flex-wrap gap-1">
                               {Object.entries(c.mapping).map(([tlo, strength]) => (
                                 <span
@@ -510,7 +641,9 @@ function Page() {
                           </div>
                         ))}
                         {s.clos.length === 0 && (
-                          <p className="text-sm text-muted-foreground">No CLOs match this filter.</p>
+                          <p className="text-sm text-muted-foreground">
+                            No CLOs match this filter.
+                          </p>
                         )}
                       </div>
                     </AccordionContent>
@@ -526,16 +659,30 @@ function Page() {
               {COURSE_CLOS.map((c) => (
                 <div key={c.id} className="glass rounded-2xl p-5">
                   <div className="flex items-center justify-between">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">{c.id}</p>
-                    <Badge variant="outline" className="font-mono text-[10px] uppercase tracking-widest">CLO</Badge>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                      {c.id}
+                    </p>
+                    <Badge
+                      variant="outline"
+                      className="font-mono text-[10px] uppercase tracking-widest"
+                    >
+                      CLO
+                    </Badge>
                   </div>
                   <h3 className="mt-1 font-mono text-base tracking-tight">{c.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{c.objective}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {c.objective}
+                  </p>
                   <div className="mt-4 space-y-2">
                     {c.clos.map((clo) => (
-                      <div key={clo.id} className="rounded-md border border-border/60 bg-background/30 p-3">
+                      <div
+                        key={clo.id}
+                        className="rounded-md border border-border/60 bg-background/30 p-3"
+                      >
                         <div className="flex items-center justify-between">
-                          <p className="font-mono text-[11px] uppercase tracking-widest text-primary">{clo.id}</p>
+                          <p className="font-mono text-[11px] uppercase tracking-widest text-primary">
+                            {clo.id}
+                          </p>
                           <div className="flex gap-1">
                             {clo.tlos.map((id) => {
                               const def = TLO_DEFS.find((t) => t.id === id)!;
@@ -547,9 +694,13 @@ function Page() {
                                     </button>
                                   </HoverCardTrigger>
                                   <HoverCardContent className="glass-strong w-72 border-border/60">
-                                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">{def.id}</p>
+                                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">
+                                      {def.id}
+                                    </p>
                                     <h4 className="mt-1 font-mono text-sm">{def.title}</h4>
-                                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{def.description}</p>
+                                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                                      {def.description}
+                                    </p>
                                   </HoverCardContent>
                                 </HoverCard>
                               );
@@ -635,7 +786,15 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}
@@ -662,7 +821,9 @@ function LegendDot({ tone, label }: { tone: string; label: string }) {
 function GovernanceCard({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="glass rounded-2xl p-5">
-      <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">Governance</p>
+      <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+        Governance
+      </p>
       <h3 className="mt-1 font-mono text-base tracking-tight">{title}</h3>
       <ul className="mt-3 space-y-2">
         {items.map((it, i) => (

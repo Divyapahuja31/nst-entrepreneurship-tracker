@@ -11,7 +11,30 @@ import {
   SidebarMenuItem,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, Compass, Map, Gauge, Trophy, Sparkles, BookOpen, GitBranch, Activity, FlaskConical, CalendarRange, LogIn, LogOut, ShieldCheck, Briefcase, Scale, Users, Rocket, GraduationCap, Handshake, Building2, CalendarClock } from "lucide-react";
+import {
+  LayoutDashboard,
+  Compass,
+  Map,
+  Gauge,
+  Trophy,
+  Sparkles,
+  BookOpen,
+  GitBranch,
+  Activity,
+  FlaskConical,
+  CalendarRange,
+  LogIn,
+  LogOut,
+  ShieldCheck,
+  Briefcase,
+  Scale,
+  Users,
+  Rocket,
+  GraduationCap,
+  Handshake,
+  Building2,
+  CalendarClock,
+} from "lucide-react";
 import { ApplyNowButton } from "./ApplyNowButton";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -61,15 +84,21 @@ export function AppSidebar() {
             <Sparkles className="h-4 w-4 text-primary" />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">NST · 2026</span>
-            <span className="font-mono text-sm tracking-tight text-foreground">Entrepreneurship</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              NST · 2026
+            </span>
+            <span className="font-mono text-sm tracking-tight text-foreground">
+              Entrepreneurship
+            </span>
           </div>
         </Link>
       </SidebarHeader>
 
       <SidebarContent className="px-1">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">Dashboard</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">
+            Dashboard
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {dashboard.map((item) => (
@@ -87,7 +116,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">Master Framework</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">
+            Master Framework
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {masterFramework.map((item) => (
@@ -105,7 +136,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">Course Designer</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">
+            Course Designer
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {courses.map((item) => (
@@ -123,7 +156,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">Governance & Outcomes</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">
+            Governance & Outcomes
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {governance.map((item) => (
@@ -148,25 +183,41 @@ export function AppSidebar() {
               <div className="flex items-center justify-between gap-2">
                 <p className="truncate font-mono text-[11px] text-foreground">{user.email}</p>
                 {isSuperAdmin ? (
-                  <Badge className="bg-primary/30 font-mono text-[9px] text-primary"><ShieldCheck className="mr-1 h-2.5 w-2.5"/>Super</Badge>
+                  <Badge className="bg-primary/30 font-mono text-[9px] text-primary">
+                    <ShieldCheck className="mr-1 h-2.5 w-2.5" />
+                    Super
+                  </Badge>
                 ) : isAdmin ? (
                   <Badge className="bg-primary/20 font-mono text-[9px] text-primary">Admin</Badge>
                 ) : (
-                  <Badge variant="outline" className="font-mono text-[9px]">Student</Badge>
+                  <Badge variant="outline" className="font-mono text-[9px]">
+                    Student
+                  </Badge>
                 )}
               </div>
-              <Button variant="ghost" size="sm" onClick={signOut} className="h-7 w-full justify-start px-2 font-mono text-[10px] uppercase tracking-widest">
-                <LogOut className="mr-2 h-3 w-3" />Sign out
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={signOut}
+                className="h-7 w-full justify-start px-2 font-mono text-[10px] uppercase tracking-widest"
+              >
+                <LogOut className="mr-2 h-3 w-3" />
+                Sign out
               </Button>
             </div>
           ) : (
-            <Link to="/auth" className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground hover:text-foreground">
+            <Link
+              to="/auth"
+              className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground hover:text-foreground"
+            >
               <LogIn className="h-3.5 w-3.5" /> Sign in · admin access
             </Link>
           )}
         </div>
         <ApplyNowButton className="w-full justify-center" />
-        <p className="mt-1 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60">v1 · master framework</p>
+        <p className="mt-1 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60">
+          v1 · master framework
+        </p>
       </SidebarFooter>
     </Sidebar>
   );

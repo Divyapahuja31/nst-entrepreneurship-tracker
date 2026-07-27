@@ -8,14 +8,22 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Overview · NST Entrepreneurship Master Framework" },
-      { name: "description", content: "Dashboard overview of the NST Entrepreneurship Track master framework." },
+      {
+        name: "description",
+        content: "Dashboard overview of the NST Entrepreneurship Track master framework.",
+      },
     ],
   }),
   component: Page,
 });
 
 const NAV = [
-  { to: "/philosophy", icon: Compass, title: "Philosophy", sub: "Strategic intent · failure patterns" },
+  {
+    to: "/philosophy",
+    icon: Compass,
+    title: "Philosophy",
+    sub: "Strategic intent · failure patterns",
+  },
   { to: "/roadmap", icon: Map, title: "4-Year Roadmap", sub: "Foundation → Residency" },
   { to: "/evaluation", icon: Gauge, title: "Evaluation Logic", sub: "Weightage · anti-gaming" },
   { to: "/outcomes", icon: Trophy, title: "Track Outcomes", sub: "TLO × CLO matrix" },
@@ -29,13 +37,16 @@ function Page() {
         <section className="glass-strong relative overflow-hidden rounded-2xl p-8 lg:p-12">
           <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
           <div className="absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-chart-2/10 blur-3xl" />
-          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary/80">Consolidated Master Framework · v1</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-primary/80">
+            Consolidated Master Framework · v1
+          </p>
           <h2 className="mt-3 max-w-3xl font-mono text-3xl leading-tight tracking-tight lg:text-5xl">
-            Building <span className="gold-text">execution-first</span> founders, startup operators &amp; venture-ready engineers.
+            Building <span className="gold-text">execution-first</span> founders, startup operators
+            &amp; venture-ready engineers.
           </h2>
           <p className="mt-4 max-w-2xl text-sm text-muted-foreground lg:text-base">
-            A structured execution-oriented entrepreneurial engineering track. Execution over theory.
-            Validation over ideation. Systems thinking over hype.
+            A structured execution-oriented entrepreneurial engineering track. Execution over
+            theory. Validation over ideation. Systems thinking over hype.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <ApplyNowButton size="lg" />
@@ -55,9 +66,14 @@ function Page() {
               { k: "Courses", v: YEARS.reduce((a, y) => a + y.courses.length, 0) },
               { k: "Execution Weight", v: `${WEIGHTAGE[0].value}%` },
             ].map((m) => (
-              <div key={m.k} className="rounded-lg border border-border/60 bg-background/20 px-4 py-3">
+              <div
+                key={m.k}
+                className="rounded-lg border border-border/60 bg-background/20 px-4 py-3"
+              >
                 <div className="font-mono text-2xl gold-text">{m.v}</div>
-                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{m.k}</div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                  {m.k}
+                </div>
               </div>
             ))}
           </div>

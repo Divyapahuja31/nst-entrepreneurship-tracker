@@ -2,14 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/TopBar";
 import { TLOS, FAILURE_PATTERNS } from "@/lib/framework-data";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Target, ShieldAlert, AlertTriangle, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/philosophy")({
   head: () => ({
     meta: [
       { title: "Philosophy · NST Entrepreneurship" },
-      { name: "description", content: "Track philosophy, strategic intent, anti-failure patterns, and Track-Level Outcomes." },
+      {
+        name: "description",
+        content:
+          "Track philosophy, strategic intent, anti-failure patterns, and Track-Level Outcomes.",
+      },
     ],
   }),
   component: Page,
@@ -34,14 +43,16 @@ function Page() {
                 <Target className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">Core Intent</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                  Core Intent
+                </p>
                 <h2 className="font-mono text-xl tracking-tight">Why this track exists</h2>
               </div>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Not a motivational startup club. Not a theoretical management program. A structured execution-oriented
-              entrepreneurial engineering track that turns technically capable students into founders, operators,
-              product builders and venture-ready engineers.
+              Not a motivational startup club. Not a theoretical management program. A structured
+              execution-oriented entrepreneurial engineering track that turns technically capable
+              students into founders, operators, product builders and venture-ready engineers.
             </p>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -63,16 +74,23 @@ function Page() {
                 <ShieldAlert className="h-4 w-4 text-destructive" />
               </div>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-destructive/80">Anti-Failure</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-destructive/80">
+                  Anti-Failure
+                </p>
                 <h2 className="font-mono text-xl tracking-tight">Observed failure patterns</h2>
               </div>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
-              The curriculum is engineered against these recurring founder gaps observed across evaluations.
+              The curriculum is engineered against these recurring founder gaps observed across
+              evaluations.
             </p>
             <Accordion type="multiple" className="mt-4">
               {FAILURE_PATTERNS.map((cluster) => (
-                <AccordionItem key={cluster.cluster} value={cluster.cluster} className="border-border/50">
+                <AccordionItem
+                  key={cluster.cluster}
+                  value={cluster.cluster}
+                  className="border-border/50"
+                >
                   <AccordionTrigger className="font-mono text-sm hover:no-underline">
                     <span className="flex items-center gap-2">
                       <AlertTriangle className="h-3.5 w-3.5 text-destructive/80" />
@@ -82,7 +100,12 @@ function Page() {
                   <AccordionContent>
                     <ul className="grid gap-1.5 pl-6">
                       {cluster.items.map((it) => (
-                        <li key={it} className="list-disc text-xs text-muted-foreground marker:text-destructive/60">{it}</li>
+                        <li
+                          key={it}
+                          className="list-disc text-xs text-muted-foreground marker:text-destructive/60"
+                        >
+                          {it}
+                        </li>
                       ))}
                     </ul>
                   </AccordionContent>
@@ -95,10 +118,14 @@ function Page() {
         <section>
           <div className="mb-4 flex items-end justify-between">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">TLO Grid</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/80">
+                TLO Grid
+              </p>
               <h2 className="font-mono text-xl tracking-tight">Track-Level Outcomes</h2>
             </div>
-            <p className="hidden font-mono text-[11px] text-muted-foreground sm:block">Hover any tile for the full TLO definition.</p>
+            <p className="hidden font-mono text-[11px] text-muted-foreground sm:block">
+              Hover any tile for the full TLO definition.
+            </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -107,19 +134,31 @@ function Page() {
                 <HoverCardTrigger asChild>
                   <button className="glass group relative overflow-hidden rounded-xl p-5 text-left transition hover:-translate-y-0.5 hover:border-primary/40">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">{t.id}</span>
-                      <span className="font-mono text-[10px] text-muted-foreground">{String(i + 1).padStart(2, "0")} / 06</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">
+                        {t.id}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        {String(i + 1).padStart(2, "0")} / 06
+                      </span>
                     </div>
                     <h3 className="mt-3 font-mono text-base tracking-tight">{t.title}</h3>
-                    <p className="mt-1 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">{t.verb}</p>
+                    <p className="mt-1 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                      {t.verb}
+                    </p>
                     <div className="hairline mt-4" />
-                    <p className="mt-3 line-clamp-3 text-xs text-muted-foreground">{t.description}</p>
+                    <p className="mt-3 line-clamp-3 text-xs text-muted-foreground">
+                      {t.description}
+                    </p>
                   </button>
                 </HoverCardTrigger>
                 <HoverCardContent className="glass-strong w-96 border-border/60">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">{t.id} · {t.verb}</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary/80">
+                    {t.id} · {t.verb}
+                  </p>
                   <h4 className="mt-1 font-mono text-sm tracking-tight">{t.title}</h4>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t.description}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {t.description}
+                  </p>
                 </HoverCardContent>
               </HoverCard>
             ))}
