@@ -214,7 +214,8 @@ export function AppSidebar() {
             </Link>
           )}
         </div>
-        <ApplyNowButton className="w-full justify-center" />
+
+        {!(isAdmin || isSuperAdmin) && <ApplyNowButton className="w-full justify-center" />}
         <p className="mt-1 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60">
           v1 · master framework
         </p>
