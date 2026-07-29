@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { TopBar } from "@/components/TopBar";
 import { useEffect, useState } from "react";
 import {
@@ -10,6 +10,9 @@ import {
   Trash2,
   Loader2,
   FolderPlus,
+  Lock,
+  ShieldAlert,
+  X,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -26,7 +29,16 @@ import {
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
+interface ResultSearch {
+  studentId?: string;
+}
+
 export const Route = createFileRoute("/result")({
+  validateSearch: (search: Record<string, unknown>): ResultSearch => {
+    return {
+      studentId: search.studentId ? String(search.studentId) : undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: "Venture KPIs & Evaluation · NST Entrepreneurship" },
@@ -63,12 +75,14 @@ interface Venture {
 }
 
 function RouteComponent() {
-  const { isAdmin, isSuperAdmin, user } = useAuth();
+  const { studentId } = Route.useSearch();
+  const { isAdmin, isSuperAdmin, user, loading: authLoading } = useAuth();
   const canEdit = isAdmin || isSuperAdmin;
 
   const [ventures, setVentures] = useState<Venture[]>([]);
   const [loading, setLoading] = useState(true);
   const [openRows, setOpenRows] = useState<Record<string, boolean>>({});
+  const [accessDeniedMessage, setAccessDeniedMessage] = useState<string | null>(null);
 
   // Add Venture Modal State
   const [ventureModalOpen, setVentureModalOpen] = useState(false);
@@ -87,19 +101,84 @@ function RouteComponent() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    fetchVentureData();
-  }, []);
+    if (!authLoading) {
+      if (user) {
+        fetchVentureData();
+      } else {
+        setLoading(false);
+      }
+    }
+  }, [user, authLoading, studentId, canEdit]);
 
   const fetchVentureData = async () => {
     setLoading(true);
+    setAccessDeniedMessage(null);
     try {
-      const { data: venturesData, error: vError } = await supabase
+      let userRollNo: string | null = null;
+      if (user) {
+        const { data: userRole } = await supabase
+          .from("user_roles")
+          .select("*")
+          .eq("user_id", user.id)
+          .maybeSingle();
+        userRollNo = (userRole as any)?.roll_no || null;
+      }
+
+      let query = supabase
         .from("ventures")
-        .select("*")
+        .select(`
+          id,
+          subject,
+          student_name,
+          roll_no,
+          user_id,
+          created_at,
+          venture_kpis (
+            id,
+            name,
+            obtain_grade,
+            total_grade,
+            created_at,
+            kpi_subcategories (
+              id,
+              name,
+              obtain_grade,
+              total_grade,
+              created_at
+            )
+          )
+        `)
         .order("created_at", { ascending: true });
 
+      if (!canEdit && user) {
+        const orConditions: string[] = [`user_id.eq.${user.id}`];
+
+        if (userRollNo && userRollNo.trim()) {
+          orConditions.push(`roll_no.ilike.${userRollNo.trim()}`);
+          orConditions.push(`student_name.ilike.${userRollNo.trim()}`);
+        }
+        if (user.email && user.email.trim()) {
+          orConditions.push(`roll_no.ilike.${user.email.trim()}`);
+          orConditions.push(`student_name.ilike.${user.email.trim()}`);
+        }
+        if (user.user_metadata?.roll_no) {
+          orConditions.push(`roll_no.ilike.${String(user.user_metadata.roll_no).trim()}`);
+        }
+        if (user.user_metadata?.full_name) {
+          orConditions.push(`student_name.ilike.${String(user.user_metadata.full_name).trim()}`);
+        }
+
+        query = query.or(orConditions.join(","));
+      }
+
+      if (studentId) {
+        query = query.eq("id", studentId);
+      }
+
+      const { data: venturesData, error: vError } = await query;
+
       if (vError) {
-        console.error("Supabase ventures error:", vError);
+        console.error("Supabase ventures query error:", vError);
         toast.error("Failed to load ventures from database");
         setVentures([]);
         setLoading(false);
@@ -107,46 +186,57 @@ function RouteComponent() {
       }
 
       if (!venturesData || venturesData.length === 0) {
+        if (studentId && !canEdit) {
+          setAccessDeniedMessage(
+            "Access Denied: You are only authorized to view your own result.",
+          );
+          toast.error("Access Denied: You can only view your own result.");
+        }
         setVentures([]);
         setLoading(false);
         return;
       }
 
-      const { data: kpisData, error: kError } = await supabase
-        .from("venture_kpis")
-        .select("*")
-        .order("created_at", { ascending: true });
-
-      const { data: subsData, error: sError } = await supabase
-        .from("kpi_subcategories")
-        .select("*")
-        .order("created_at", { ascending: true });
-
-      if (kError || sError) {
-        console.error("Error loading KPIs:", kError || sError);
+      if (!canEdit && user) {
+        for (const v of venturesData) {
+          if (!v.user_id && user.id) {
+            supabase
+              .from("ventures")
+              .update({ user_id: user.id })
+              .eq("id", v.id)
+              .then(({ error }) => {
+                if (error) console.error("Auto-linking venture user_id error:", error);
+              });
+          }
+        }
       }
 
-      const formattedVentures: Venture[] = venturesData.map((v) => {
-        const vKpis = (kpisData || [])
-          .filter((k) => k.venture_id === v.id)
-          .map((k) => {
-            const kSubs = (subsData || [])
-              .filter((s) => s.kpi_id === k.id)
-              .map((s) => ({
-                id: s.id,
-                name: s.name,
-                obtainGrade: s.obtain_grade,
-                totalGrade: Number(s.total_grade),
-              }));
+      const formattedVentures: Venture[] = (venturesData as any[]).map((v) => {
+        const sortedKpis = (v.venture_kpis || []).sort(
+          (a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+        );
 
-            return {
-              id: k.id,
-              name: k.name,
-              obtainGrade: k.obtain_grade,
-              totalGrade: Number(k.total_grade),
-              subcategories: kSubs.length > 0 ? kSubs : undefined,
-            };
-          });
+        const vKpis: KPI[] = sortedKpis.map((k: any) => {
+          const sortedSubs = (k.kpi_subcategories || []).sort(
+            (a: any, b: any) =>
+              new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+          );
+
+          const kSubs: Subcategory[] = sortedSubs.map((s: any) => ({
+            id: s.id,
+            name: s.name,
+            obtainGrade: s.obtain_grade,
+            totalGrade: Number(s.total_grade),
+          }));
+
+          return {
+            id: k.id,
+            name: k.name,
+            obtainGrade: k.obtain_grade,
+            totalGrade: Number(k.total_grade),
+            subcategories: kSubs.length > 0 ? kSubs : undefined,
+          };
+        });
 
         return {
           id: v.id,
@@ -182,11 +272,26 @@ function RouteComponent() {
 
     setSubmittingVenture(true);
     try {
+      let linkedUserId: string | null = null;
+      const searchKey = (ventureRollNo.trim() || ventureStudentName.trim()).toLowerCase();
+
+      if (searchKey) {
+        const { data: matchedRoles } = await supabase
+          .from("user_roles")
+          .select("user_id")
+          .ilike("roll_no", searchKey)
+          .maybeSingle();
+
+        if (matchedRoles?.user_id) {
+          linkedUserId = matchedRoles.user_id;
+        }
+      }
+
       const { data, error } = await supabase
         .from("ventures")
         .insert([
           {
-            user_id: user?.id || null,
+            user_id: linkedUserId,
             subject: ventureSubject.trim(),
             student_name: ventureStudentName.trim(),
             roll_no: ventureRollNo.trim() || null,
@@ -367,6 +472,42 @@ function RouteComponent() {
     }
   };
 
+  if (authLoading) {
+    return (
+      <main className="flex-1 flex items-center justify-center p-12">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </main>
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        <TopBar title="Credit & Evaluation Architecture" breadcrumb="Governance & Outcomes" />
+        <main className="flex-1 px-6 py-12 lg:px-10">
+          <div className="glass-strong max-w-xl mx-auto rounded-2xl p-10 text-center space-y-4">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 ring-1 ring-primary/30">
+              <Lock className="h-6 w-6 text-primary" />
+            </div>
+            <h2 className="font-mono text-xl tracking-tight text-foreground font-semibold">
+              Sign In Required
+            </h2>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Student results and evaluation KPIs are private to individual students. Please sign in with your student account to view your evaluation result.
+            </p>
+            <div className="pt-2">
+              <Link to="/auth">
+                <Button className="font-mono text-xs uppercase tracking-wider">
+                  Sign In to View Result
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </main>
+      </>
+    );
+  }
+
   return (
     <>
       <TopBar title="Credit & Evaluation Architecture" breadcrumb="Governance & Outcomes" />
@@ -391,30 +532,57 @@ function RouteComponent() {
                       variant="outline"
                       className="font-mono text-[10px] text-muted-foreground"
                     >
-                      Student Read-Only Mode
+                      Private Student Mode ({user.email})
                     </Badge>
                   )}
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Track performance indicators, grades, and granular subgrades across all registered
-                  ventures.
+                  Track performance indicators, grades, and granular subgrades across your registered ventures.
                 </p>
               </div>
             </div>
 
-            {canEdit && (
-              <Button
-                onClick={() => setVentureModalOpen(true)}
-                className="font-mono text-xs uppercase tracking-wider shrink-0"
-              >
-                <FolderPlus className="mr-1.5 h-4 w-4" />
-                Add Venture
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              {canEdit && studentId && (
+                <Link to="/result">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="font-mono text-xs border-primary/30 text-primary"
+                  >
+                    <X className="mr-1.5 h-3.5 w-3.5" /> Show All Student Results
+                  </Button>
+                </Link>
+              )}
+              {canEdit && (
+                <Button
+                  onClick={() => setVentureModalOpen(true)}
+                  className="font-mono text-xs uppercase tracking-wider shrink-0"
+                >
+                  <FolderPlus className="mr-1.5 h-4 w-4" />
+                  Add Venture
+                </Button>
+              )}
+            </div>
           </div>
         </section>
 
-        {loading ? (
+        {accessDeniedMessage ? (
+          <div className="glass-strong rounded-2xl p-10 text-center space-y-4 border border-destructive/30">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-destructive/15 ring-1 ring-destructive/30">
+              <ShieldAlert className="h-6 w-6 text-destructive" />
+            </div>
+            <h3 className="font-mono text-lg font-semibold text-foreground">Access Restricted</h3>
+            <p className="text-xs text-muted-foreground max-w-md mx-auto">{accessDeniedMessage}</p>
+            <div className="pt-2">
+              <Link to="/result">
+                <Button variant="outline" className="font-mono text-xs uppercase tracking-wider">
+                  View My Result
+                </Button>
+              </Link>
+            </div>
+          </div>
+        ) : loading ? (
           <div className="flex h-40 items-center justify-center font-mono text-xs text-muted-foreground">
             <Loader2 className="mr-2 h-4 w-4 animate-spin text-primary" />
             Connecting & loading venture KPIs from Supabase...
@@ -422,7 +590,7 @@ function RouteComponent() {
         ) : ventures.length === 0 ? (
           <div className="glass-strong rounded-2xl p-12 text-center space-y-3">
             <p className="font-mono text-sm text-muted-foreground">
-              No ventures registered in Supabase database yet.
+              No registered venture records found for your account.
             </p>
             {canEdit ? (
               <Button
@@ -434,7 +602,7 @@ function RouteComponent() {
               </Button>
             ) : (
               <p className="text-xs text-muted-foreground/70">
-                Please wait for faculty to publish venture evaluations.
+                Please wait for faculty to publish your venture evaluations.
               </p>
             )}
           </div>

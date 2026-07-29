@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/manageResult")({
   component: RouteComponent,
@@ -18,12 +19,19 @@ interface StudentRecord {
 }
 
 function RouteComponent() {
+  const { isAdmin, isSuperAdmin, loading: authLoading } = useAuth();
+  const canManage = isAdmin || isSuperAdmin;
+
   const [students, setStudents] = useState<StudentRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchStudents();
-  }, []);
+    if (canManage) {
+      fetchStudents();
+    } else {
+      setLoading(false);
+    }
+  }, [canManage]);
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -50,6 +58,39 @@ function RouteComponent() {
       setLoading(false);
     }
   };
+
+  if (authLoading) {
+    return (
+      <main className="flex-1 flex items-center justify-center p-12">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </main>
+    );
+  }
+
+  if (!canManage) {
+    return (
+      <>
+        <TopBar title="Credit & Evaluation Architecture" breadcrumb="Governance & Outcomes" />
+        <main className="flex-1 px-6 py-12 lg:px-10">
+          <div className="glass-strong max-w-xl mx-auto rounded-2xl p-10 text-center space-y-4">
+            <h2 className="font-mono text-xl tracking-tight text-foreground font-semibold">
+              Faculty Access Required
+            </h2>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              The student directory and result management portal is reserved for administrators and faculty members.
+            </p>
+            <div className="pt-2">
+              <Link to="/result">
+                <Button className="font-mono text-xs uppercase tracking-wider">
+                  View My Result
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
