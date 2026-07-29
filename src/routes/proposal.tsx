@@ -74,11 +74,25 @@ function Page() {
       if (accepted) {
         const target = proposals?.find((p) => p.id === proposal_id);
         if (target) {
+          let matchedUserId: string | null = null;
+          if (target.email) {
+            const { data: matchedRoles } = await supabase
+              .from("user_roles")
+              .select("user_id")
+              .ilike("roll_no", target.email.trim())
+              .maybeSingle();
+
+            if (matchedRoles?.user_id) {
+              matchedUserId = matchedRoles.user_id;
+            }
+          }
+
           const { error: vError } = await supabase.from("ventures").insert([
             {
+              user_id: matchedUserId,
               student_name: target.name,
               subject: target.subject || target.venture || "Entrepreneurship Venture",
-              roll_no: `${target.id}`,
+              roll_no: target.email ? target.email.trim() : `${target.id}`,
             },
           ]);
 
@@ -86,7 +100,7 @@ function Page() {
             console.error("Auto venture creation notice:", vError.message);
           } else {
             toast.success(
-              `Proposal accepted! Student "${target.name}" automatically added to Manage Result.`,
+              `Proposal accepted! Student "${target.name}" (${target.email}) automatically added to Manage Result.`,
             );
           }
         }
