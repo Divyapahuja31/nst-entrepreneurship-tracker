@@ -25,7 +25,6 @@ import { Route as IndustryReadinessRouteImport } from './routes/industry-readine
 import { Route as IndustryPartnerRouteImport } from './routes/industry-partner'
 import { Route as FounderReviewRouteImport } from './routes/founder-review'
 import { Route as EvaluationRouteImport } from './routes/evaluation'
-import { Route as EmailPreviewRouteImport } from './routes/email-preview'
 import { Route as CreditMappingRouteImport } from './routes/credit-mapping'
 import { Route as CommandCenterRouteImport } from './routes/command-center'
 import { Route as CohortPlannerRouteImport } from './routes/cohort-planner'
@@ -115,11 +114,6 @@ const EvaluationRoute = EvaluationRouteImport.update({
   path: '/evaluation',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmailPreviewRoute = EmailPreviewRouteImport.update({
-  id: '/email-preview',
-  path: '/email-preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CreditMappingRoute = CreditMappingRouteImport.update({
   id: '/credit-mapping',
   path: '/credit-mapping',
@@ -169,7 +163,6 @@ export interface FileRoutesByFullPath {
   '/cohort-planner': typeof CohortPlannerRoute
   '/command-center': typeof CommandCenterRoute
   '/credit-mapping': typeof CreditMappingRoute
-  '/email-preview': typeof EmailPreviewRoute
   '/evaluation': typeof EvaluationRoute
   '/founder-review': typeof FounderReviewRoute
   '/industry-partner': typeof IndustryPartnerRoute
@@ -196,7 +189,6 @@ export interface FileRoutesByTo {
   '/cohort-planner': typeof CohortPlannerRoute
   '/command-center': typeof CommandCenterRoute
   '/credit-mapping': typeof CreditMappingRoute
-  '/email-preview': typeof EmailPreviewRoute
   '/evaluation': typeof EvaluationRoute
   '/founder-review': typeof FounderReviewRoute
   '/industry-partner': typeof IndustryPartnerRoute
@@ -224,7 +216,6 @@ export interface FileRoutesById {
   '/cohort-planner': typeof CohortPlannerRoute
   '/command-center': typeof CommandCenterRoute
   '/credit-mapping': typeof CreditMappingRoute
-  '/email-preview': typeof EmailPreviewRoute
   '/evaluation': typeof EvaluationRoute
   '/founder-review': typeof FounderReviewRoute
   '/industry-partner': typeof IndustryPartnerRoute
@@ -253,7 +244,6 @@ export interface FileRouteTypes {
     | '/cohort-planner'
     | '/command-center'
     | '/credit-mapping'
-    | '/email-preview'
     | '/evaluation'
     | '/founder-review'
     | '/industry-partner'
@@ -280,7 +270,6 @@ export interface FileRouteTypes {
     | '/cohort-planner'
     | '/command-center'
     | '/credit-mapping'
-    | '/email-preview'
     | '/evaluation'
     | '/founder-review'
     | '/industry-partner'
@@ -307,7 +296,6 @@ export interface FileRouteTypes {
     | '/cohort-planner'
     | '/command-center'
     | '/credit-mapping'
-    | '/email-preview'
     | '/evaluation'
     | '/founder-review'
     | '/industry-partner'
@@ -335,7 +323,6 @@ export interface RootRouteChildren {
   CohortPlannerRoute: typeof CohortPlannerRoute
   CommandCenterRoute: typeof CommandCenterRoute
   CreditMappingRoute: typeof CreditMappingRoute
-  EmailPreviewRoute: typeof EmailPreviewRoute
   EvaluationRoute: typeof EvaluationRoute
   FounderReviewRoute: typeof FounderReviewRoute
   IndustryPartnerRoute: typeof IndustryPartnerRoute
@@ -469,13 +456,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EvaluationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/email-preview': {
-      id: '/email-preview'
-      path: '/email-preview'
-      fullPath: '/email-preview'
-      preLoaderRoute: typeof EmailPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/credit-mapping': {
       id: '/credit-mapping'
       path: '/credit-mapping'
@@ -543,7 +523,6 @@ const rootRouteChildren: RootRouteChildren = {
   CohortPlannerRoute: CohortPlannerRoute,
   CommandCenterRoute: CommandCenterRoute,
   CreditMappingRoute: CreditMappingRoute,
-  EmailPreviewRoute: EmailPreviewRoute,
   EvaluationRoute: EvaluationRoute,
   FounderReviewRoute: FounderReviewRoute,
   IndustryPartnerRoute: IndustryPartnerRoute,
