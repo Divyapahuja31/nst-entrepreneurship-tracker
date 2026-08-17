@@ -195,6 +195,7 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         required={required}
         className="bg-background/40 font-mono text-sm"
+        suppressHydrationWarning
       />
     </div>
   );
