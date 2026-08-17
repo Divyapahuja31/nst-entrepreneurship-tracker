@@ -1,3 +1,8 @@
+import ws from "ws";
+if (typeof globalThis.WebSocket === "undefined") {
+  globalThis.WebSocket = ws as any;
+}
+
 import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
