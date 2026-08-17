@@ -14,6 +14,7 @@ import {
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { canEditKpi, canLockKpi, canUnlockKpi, type Actor } from "@/lib/permissions";
+import { sendLockedKpiEmailsFn } from "@/lib/email/email.actions";
 
 export interface GradeTarget {
   kpiId: string;
@@ -88,6 +89,22 @@ export function GradeDialog({
       return;
     }
     toast.success(lock ? "Score saved and locked." : "Score saved.");
+
+    if (lock) {
+      sendLockedKpiEmailsFn({
+        data: {
+          kpiId: target.kpiId,
+          ventureId: target.ventureId,
+        }
+      }).then((res) => {
+        if (!res?.success) {
+          toast.error(`Score locked, but email failed: ${res?.error}`);
+        }
+      }).catch((err) => {
+        toast.error(`Score locked, but email script failed: ${err.message || String(err)}`);
+      });
+    }
+
     onOpenChange(false);
     onSaved();
   }
@@ -197,13 +214,7 @@ export function GradeDialog({
             <Button
               type="button"
               disabled={saving}
-              onClick={() => {
-                if (
-                  window.confirm("Lock this score? You will not be able to edit it afterwards.")
-                ) {
-                  save(true);
-                }
-              }}
+              onClick={() => save(true)}
               className="font-mono text-xs"
             >
               <Lock className="mr-1.5 h-3.5 w-3.5" />
