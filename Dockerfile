@@ -46,15 +46,20 @@ ARG VITE_SUPABASE_PROJECT_ID
 ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
 ENV VITE_SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
 ENV VITE_SUPABASE_PROJECT_ID=$VITE_SUPABASE_PROJECT_ID
+ENV SUPABASE_URL=$VITE_SUPABASE_URL
+ENV SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
 ENV NODE_ENV=production
 
 RUN npm run build
 
 # ---------------------------------------------------
-# Stage 5: Production runner
+# Stage 4: Production runner (Lightweight Nitro Server)
 # ---------------------------------------------------
 FROM node:22-alpine AS runner
 WORKDIR /app
+
+LABEL org.opencontainers.image.source="https://github.com/kritgarg/nst-entrepreneurship-tracker"
+LABEL org.opencontainers.image.description="NST Entrepreneurship Tracker Production Image"
 
 ENV NODE_ENV=production
 ENV PORT=3000
@@ -64,12 +69,12 @@ ENV HOST=0.0.0.0
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 tanstack
 
+# Copy built Nitro output
 COPY --chown=tanstack:nodejs --from=builder /app/.output ./.output
 
 USER tanstack
 
 EXPOSE 3000
 
-# The nitro server entry: serves SSR, server routes and the static assets from
-# .output/public. `vite preview` would serve the client build only.
+# Run Nitro node server
 CMD ["node", ".output/server/index.mjs"]
