@@ -67,17 +67,7 @@ async function checkKpiPermission(
       (userEmailNorm && (ventureRollNorm === userEmailNorm || ventureStudentNameNorm === userEmailNorm)) ||
       (userRollNorm && ventureRollNorm === userRollNorm));
 
-  console.log("[checkKpiPermission Debug]", {
-    userId,
-    role,
-    userEmailNorm,
-    userRollNorm,
-    ventureRollNorm,
-    ventureStudentNameNorm,
-    isOwner,
-    isMentor,
-    isLocked,
-  });
+
 
   return {
     role,
@@ -109,9 +99,6 @@ export const addKpiServerFn = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { userId } = context;
-    if (!userId || userId === "system") {
-      throw new Error("Unauthorized");
-    }
 
     try {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -181,9 +168,6 @@ export const editKpiServerFn = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { userId } = context;
-    if (!userId || userId === "system") {
-      throw new Error("Unauthorized");
-    }
 
     try {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -251,9 +235,6 @@ export const deleteKpiServerFn = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { userId } = context;
-    if (!userId || userId === "system") {
-      throw new Error("Unauthorized");
-    }
 
     try {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
