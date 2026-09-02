@@ -294,7 +294,7 @@ export function AppSidebar() {
               to="/auth"
               className="flex items-center justify-center gap-2 h-8 w-full rounded-lg bg-[#C85A32]/15 border border-[#C85A32]/30 px-3 font-sans text-xs font-semibold text-[#C85A32] hover:bg-[#C85A32]/25 transition-colors"
             >
-              <LogIn className="h-3.5 w-3.5" /> Sign in · admin access
+              <LogIn className="h-3.5 w-3.5" /> Sign in
             </Link>
           )}
         </div>
