@@ -9,6 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CareerOutcomesRouteImport } from './routes/career-outcomes'
+import { Route as CohortPlannerRouteImport } from './routes/cohort-planner'
+import { Route as CommandCenterRouteImport } from './routes/command-center'
+import { Route as CreditMappingRouteImport } from './routes/credit-mapping'
+import { Route as EmailPreviewRouteImport } from './routes/email-preview'
+import { Route as EvaluationRouteImport } from './routes/evaluation'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as FounderReviewRouteImport } from './routes/founder-review'
+import { Route as IndustryPartnerRouteImport } from './routes/industry-partner'
+import { Route as IndustryReadinessRouteImport } from './routes/industry-readiness'
+import { Route as ManageResultRouteImport } from './routes/manageResult'
+import { Route as MentorFrameworkRouteImport } from './routes/mentor-framework'
+import { Route as OutcomesRouteImport } from './routes/outcomes'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
+import { Route as ProgramGovernanceRouteImport } from './routes/program-governance'
+import { Route as ProposalRouteImport } from './routes/proposal'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as ResultRouteImport } from './routes/result'
+import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as SigninRouteImport } from './routes/signin'
+import { Route as StartupResidencyRouteImport } from './routes/startup-residency'
+import { Route as SyllabusRouteImport } from './routes/syllabus'
+import { Route as SyllabusOverviewRouteImport } from './routes/syllabus-overview'
 import { Route as WeeklyFrameworkRouteImport } from './routes/weekly-framework'
 import { Route as SyllabusOverviewRouteImport } from './routes/syllabus-overview'
 import { Route as SyllabusRouteImport } from './routes/syllabus'
@@ -142,6 +168,14 @@ const CommandCenterRoute = CommandCenterRouteImport.update({
   path: '/command-center',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StartupResidencyRoute = StartupResidencyRouteImport.update({
+  id: '/startup-residency',
+  path: '/startup-residency',
 const CohortPlannerRoute = CohortPlannerRouteImport.update({
   id: '/cohort-planner',
   path: '/cohort-planner',
@@ -196,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
+  '/signin': typeof SigninRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
   '/syllabus-overview': typeof SyllabusOverviewRoute
@@ -225,6 +260,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
+  '/signin': typeof SigninRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
   '/syllabus-overview': typeof SyllabusOverviewRoute
@@ -255,6 +291,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
+  '/signin': typeof SigninRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
   '/syllabus-overview': typeof SyllabusOverviewRoute
@@ -286,6 +323,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/result'
     | '/roadmap'
+    | '/signin'
     | '/startup-residency'
     | '/syllabus'
     | '/syllabus-overview'
@@ -315,6 +353,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/result'
     | '/roadmap'
+    | '/signin'
     | '/startup-residency'
     | '/syllabus'
     | '/syllabus-overview'
@@ -344,6 +383,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/result'
     | '/roadmap'
+    | '/signin'
     | '/startup-residency'
     | '/syllabus'
     | '/syllabus-overview'
@@ -374,6 +414,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   ResultRoute: typeof ResultRoute
   RoadmapRoute: typeof RoadmapRoute
+  SigninRoute: typeof SigninRoute
   StartupResidencyRoute: typeof StartupResidencyRoute
   SyllabusRoute: typeof SyllabusRoute
   SyllabusOverviewRoute: typeof SyllabusOverviewRoute
@@ -530,6 +571,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommandCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/startup-residency': {
+      id: '/startup-residency'
+      path: '/startup-residency'
+      fullPath: '/startup-residency'
+      preLoaderRoute: typeof StartupResidencyRouteImport
     '/cohort-planner': {
       id: '/cohort-planner'
       path: '/cohort-planner'
@@ -598,6 +651,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   ResultRoute: ResultRoute,
   RoadmapRoute: RoadmapRoute,
+  SigninRoute: SigninRoute,
   StartupResidencyRoute: StartupResidencyRoute,
   SyllabusRoute: SyllabusRoute,
   SyllabusOverviewRoute: SyllabusOverviewRoute,
