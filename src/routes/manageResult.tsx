@@ -37,6 +37,28 @@ type Mentor = { user_id: string; email: string | null };
 
 const UNASSIGNED = "__unassigned__";
 
+function formatMentorName(email: string | null | undefined, fallbackId?: string | null): string {
+  if (!email) {
+    if (fallbackId) return `Mentor ${fallbackId.slice(0, 8)}`;
+    return "Unassigned";
+  }
+
+  const handle = email.split("@")[0]?.trim();
+  if (!handle) return email;
+
+  const normalized = email.toLowerCase().trim();
+  if (normalized.includes("divyapahuja")) return "Divya Pahuja";
+  if (normalized.includes("raghav.khandelwal") || normalized.includes("raghavkhandelwal")) return "Raghav Khandelwal";
+
+  const clean = handle.replace(/[\d._-]+/g, " ").trim();
+  if (!clean) return handle;
+
+  return clean
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+
 function RouteComponent() {
   const { isStaff, role, user } = useAuth();
   const canManage = isStaff;
@@ -101,7 +123,7 @@ function RouteComponent() {
   const mentorLabel = (id: string | null) => {
     if (!id) return null;
     const m = mentors.find((x) => x.user_id === id);
-    return m?.email ?? `Mentor ${id.slice(0, 8)}`;
+    return formatMentorName(m?.email, id);
   };
 
   const assignMentor = async (ventureId: string, value: string) => {
@@ -222,7 +244,7 @@ function RouteComponent() {
                             value={m.user_id}
                             className="font-mono text-xs"
                           >
-                            {m.email ?? `Mentor ${m.user_id.slice(0, 8)}`}
+                            {formatMentorName(m.email, m.user_id)}
                           </SelectItem>
                         ))}
                       </SelectContent>
