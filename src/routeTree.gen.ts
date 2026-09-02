@@ -31,6 +31,7 @@ import { Route as ProposalRouteImport } from './routes/proposal'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ResultRouteImport } from './routes/result'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as SigninRouteImport } from './routes/signin'
 import { Route as StartupResidencyRouteImport } from './routes/startup-residency'
 import { Route as SyllabusRouteImport } from './routes/syllabus'
 import { Route as SyllabusOverviewRouteImport } from './routes/syllabus-overview'
@@ -147,6 +148,11 @@ const RoadmapRoute = RoadmapRouteImport.update({
   path: '/roadmap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StartupResidencyRoute = StartupResidencyRouteImport.update({
   id: '/startup-residency',
   path: '/startup-residency',
@@ -196,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
+  '/signin': typeof SigninRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
   '/syllabus-overview': typeof SyllabusOverviewRoute
@@ -225,6 +232,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
+  '/signin': typeof SigninRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
   '/syllabus-overview': typeof SyllabusOverviewRoute
@@ -255,6 +263,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/result': typeof ResultRoute
   '/roadmap': typeof RoadmapRoute
+  '/signin': typeof SigninRoute
   '/startup-residency': typeof StartupResidencyRoute
   '/syllabus': typeof SyllabusRoute
   '/syllabus-overview': typeof SyllabusOverviewRoute
@@ -286,6 +295,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/result'
     | '/roadmap'
+    | '/signin'
     | '/startup-residency'
     | '/syllabus'
     | '/syllabus-overview'
@@ -315,6 +325,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/result'
     | '/roadmap'
+    | '/signin'
     | '/startup-residency'
     | '/syllabus'
     | '/syllabus-overview'
@@ -344,6 +355,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/result'
     | '/roadmap'
+    | '/signin'
     | '/startup-residency'
     | '/syllabus'
     | '/syllabus-overview'
@@ -374,6 +386,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   ResultRoute: typeof ResultRoute
   RoadmapRoute: typeof RoadmapRoute
+  SigninRoute: typeof SigninRoute
   StartupResidencyRoute: typeof StartupResidencyRoute
   SyllabusRoute: typeof SyllabusRoute
   SyllabusOverviewRoute: typeof SyllabusOverviewRoute
@@ -537,6 +550,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoadmapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/startup-residency': {
       id: '/startup-residency'
       path: '/startup-residency'
@@ -598,6 +618,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   ResultRoute: ResultRoute,
   RoadmapRoute: RoadmapRoute,
+  SigninRoute: SigninRoute,
   StartupResidencyRoute: StartupResidencyRoute,
   SyllabusRoute: SyllabusRoute,
   SyllabusOverviewRoute: SyllabusOverviewRoute,
