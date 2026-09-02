@@ -142,19 +142,19 @@ export function FrameworkSearch() {
   }, [q]);
 
   return (
-    <div className="relative w-full max-w-lg">
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+    <div className="relative w-full max-w-sm">
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-stone-400" />
       <Input
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search TLOs, courses, CLOs…"
-        className="h-9 bg-background/40 pl-9 pr-14 font-mono text-sm placeholder:text-muted-foreground/60"
+        className="h-8 bg-white/80 border-stone-200/80 pl-8 pr-12 font-sans text-xs placeholder:text-stone-400 text-stone-900 focus-visible:ring-[#C85A32]/30 rounded-lg shadow-2xs"
       />
-      <kbd className="pointer-events-none absolute right-2 top-1/2 hidden -translate-y-1/2 items-center gap-1 rounded border border-border bg-muted/40 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground sm:flex">
-        <Command className="h-3 w-3" /> K
+      <kbd className="pointer-events-none absolute right-2 top-1/2 hidden -translate-y-1/2 items-center gap-0.5 rounded border border-stone-200 bg-stone-100/70 px-1.5 py-0.5 font-mono text-[9px] text-stone-500 sm:flex">
+        <Command className="h-2.5 w-2.5" /> K
       </kbd>
       {results.length > 0 && (
-        <div className="glass-strong absolute left-0 right-0 top-[calc(100%+6px)] z-50 max-h-80 overflow-auto rounded-lg p-1.5">
+        <div className="glass-strong absolute left-0 right-0 top-[calc(100%+6px)] z-50 max-h-80 overflow-auto rounded-xl p-1.5 shadow-xl border border-stone-200 bg-white/95">
           {results.map((r, i) => (
             <button
               key={i}
@@ -162,13 +162,13 @@ export function FrameworkSearch() {
                 setQ("");
                 navigate({ to: r.to as string });
               }}
-              className="flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-sm hover:bg-accent/40"
+              className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-xs transition-colors hover:bg-stone-100/80 cursor-pointer"
             >
               <div className="min-w-0">
-                <div className="truncate font-mono text-foreground">{r.label}</div>
-                <div className="truncate text-[11px] text-muted-foreground">{r.sub}</div>
+                <div className="truncate font-sans font-medium text-stone-900">{r.label}</div>
+                <div className="truncate text-[11px] text-stone-500">{r.sub}</div>
               </div>
-              <span className="rounded-sm border border-border bg-muted/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <span className="rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-widest text-stone-500 shrink-0">
                 {r.kind}
               </span>
             </button>
@@ -183,37 +183,23 @@ export function TopBar({ title, breadcrumb }: { title: string; breadcrumb?: stri
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-border/60 bg-background/70 px-4 backdrop-blur-xl">
-      <div className="flex items-baseline gap-2">
+    <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-stone-200/80 bg-[#FAF8F5]/85 px-6 backdrop-blur-xl transition-colors">
+      <div className="flex items-center gap-2">
         {breadcrumb && (
           <>
             <Link
               to="/"
-              className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground"
+              className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-stone-700 transition-colors"
             >
               {breadcrumb}
             </Link>
-            <span className="text-muted-foreground/40">/</span>
+            <span className="text-stone-300 font-mono text-xs">/</span>
           </>
         )}
-        <h1 className="font-mono text-sm tracking-tight text-foreground">{title}</h1>
+        <h1 className="font-sans text-sm font-semibold tracking-tight text-stone-900">{title}</h1>
       </div>
       <div className="ml-auto flex items-center gap-3">
         <FrameworkSearch />
-
-        <Button
-          variant="default"
-          size="sm"
-          className={
-            "group bg-primary text-primary-foreground hover:bg-primary/90 font-mono uppercase tracking-[0.18em] text-[11px] "
-          }
-          onClick={() => {
-            navigate({ to: "/proposal" });
-          }}
-        >
-          View Proposal
-          <ArrowUpRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Button>
       </div>
     </header>
   );

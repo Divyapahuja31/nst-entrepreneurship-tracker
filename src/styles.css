@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Instrument Serif", "Newsreader", "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -49,58 +50,58 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root,
-.dark {
-  --radius: 0.5rem;
+:root {
+  --radius: 0.75rem;
 
-  /* Dark executive — deep navy-black with gold accent */
-  --background: oklch(0.16 0.015 250);
-  --foreground: oklch(0.94 0.01 95);
+  /* Black, Cream & Warm Terracotta/Brown palette */
+  --background: #FAF8F5; /* Warm cream off-white */
+  --foreground: #1C1917; /* Pure dark charcoal / black text */
 
-  --card: oklch(0.21 0.018 250 / 0.55);
-  --card-foreground: oklch(0.94 0.01 95);
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #1C1917;
 
-  --popover: oklch(0.18 0.018 250);
-  --popover-foreground: oklch(0.94 0.01 95);
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1917;
 
-  --primary: oklch(0.78 0.13 80); /* gold */
-  --primary-foreground: oklch(0.18 0.018 250);
+  --primary: #C85A32; /* Tertiary warm brownish terracotta accent */
+  --primary-foreground: #FFFFFF;
 
-  --secondary: oklch(0.26 0.02 250);
-  --secondary-foreground: oklch(0.94 0.01 95);
+  --secondary: #F3F0EA;
+  --secondary-foreground: #1C1917;
 
-  --muted: oklch(0.24 0.018 250);
-  --muted-foreground: oklch(0.68 0.015 250);
+  --muted: #F2EFE9;
+  --muted-foreground: #78716C;
 
-  --accent: oklch(0.3 0.025 250);
-  --accent-foreground: oklch(0.94 0.01 95);
+  --accent: #EAE6DF;
+  --accent-foreground: #1C1917;
 
-  --destructive: oklch(0.62 0.21 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
 
-  --border: oklch(0.94 0.01 95 / 0.08);
-  --input: oklch(0.94 0.01 95 / 0.1);
-  --ring: oklch(0.78 0.13 80 / 0.5);
+  --border: rgba(28, 25, 23, 0.08);
+  --input: rgba(28, 25, 23, 0.1);
+  --ring: rgba(200, 90, 50, 0.25);
 
-  --gold: oklch(0.78 0.13 80);
-  --gold-soft: oklch(0.78 0.13 80 / 0.15);
-  --success: oklch(0.72 0.16 155);
-  --warning: oklch(0.78 0.16 60);
+  --gold: #C85A32;
+  --gold-soft: rgba(200, 90, 50, 0.1);
+  --success: #16A34A;
+  --warning: #EA580C;
 
-  --chart-1: oklch(0.78 0.13 80);
-  --chart-2: oklch(0.65 0.13 220);
-  --chart-3: oklch(0.72 0.16 155);
-  --chart-4: oklch(0.68 0.18 25);
-  --chart-5: oklch(0.62 0.18 295);
+  --chart-1: #C85A32;
+  --chart-2: #292524;
+  --chart-3: #D97706;
+  --chart-4: #DC2626;
+  --chart-5: #78350F;
 
-  --sidebar: oklch(0.13 0.015 250);
-  --sidebar-foreground: oklch(0.88 0.01 95);
-  --sidebar-primary: oklch(0.78 0.13 80);
-  --sidebar-primary-foreground: oklch(0.16 0.015 250);
-  --sidebar-accent: oklch(0.21 0.02 250);
-  --sidebar-accent-foreground: oklch(0.94 0.01 95);
-  --sidebar-border: oklch(0.94 0.01 95 / 0.06);
-  --sidebar-ring: oklch(0.78 0.13 80 / 0.5);
+  /* Refined dark charcoal sidebar */
+  --sidebar: #11100F;
+  --sidebar-foreground: #E7E5E4;
+  --sidebar-primary: #C85A32;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(255, 255, 255, 0.07);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.07);
+  --sidebar-ring: rgba(200, 90, 50, 0.5);
 }
 
 @layer base {
@@ -110,62 +111,54 @@
 
   html,
   body {
-    background:
-      radial-gradient(1100px 700px at 12% -10%, oklch(0.78 0.13 80 / 0.08), transparent 60%),
-      radial-gradient(900px 600px at 100% 0%, oklch(0.55 0.15 245 / 0.1), transparent 55%),
-      var(--color-background);
+    background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-mono);
-    font-feature-settings: "ss01", "cv11";
-    letter-spacing: -0.005em;
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background: rgba(200, 90, 50, 0.15);
+    color: #C85A32;
   }
 }
 
 @layer components {
   .glass {
-    background:
-      linear-gradient(180deg, oklch(1 0 0 / 0.04) 0%, oklch(1 0 0 / 0.015) 100%),
-      oklch(0.2 0.018 250 / 0.55);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid oklch(1 0 0 / 0.08);
-    box-shadow:
-      0 1px 0 0 oklch(1 0 0 / 0.05) inset,
-      0 30px 60px -30px oklch(0 0 0 / 0.6);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(28, 25, 23, 0.07);
+    box-shadow: 0 4px 20px -4px rgba(28, 25, 23, 0.03), 0 1px 2px 0 rgba(28, 25, 23, 0.02);
   }
 
   .glass-strong {
-    background:
-      linear-gradient(180deg, oklch(1 0 0 / 0.06) 0%, oklch(1 0 0 / 0.02) 100%),
-      oklch(0.22 0.02 250 / 0.7);
-    backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid oklch(1 0 0 / 0.1);
-    box-shadow:
-      0 1px 0 0 oklch(1 0 0 / 0.08) inset,
-      0 40px 80px -30px oklch(0 0 0 / 0.7);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(28, 25, 23, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(28, 25, 23, 0.05), 0 1px 3px 0 rgba(28, 25, 23, 0.03);
+  }
+
+  .accent-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
   }
 
   .gold-text {
-    background: linear-gradient(135deg, oklch(0.88 0.13 85), oklch(0.65 0.14 70));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #1C1917;
   }
 
   .hairline {
-    background-image: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.12), transparent);
+    background-image: linear-gradient(90deg, transparent, rgba(28, 25, 23, 0.12), transparent);
     height: 1px;
   }
 
   .grid-bg {
     background-image:
-      linear-gradient(oklch(1 0 0 / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 0.035) 1px, transparent 1px);
+      linear-gradient(rgba(28, 25, 23, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28, 25, 23, 0.025) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 }

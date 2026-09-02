@@ -39,7 +39,29 @@ export const Route = createFileRoute("/proposal")({
 
 type Mentor = { user_id: string; email: string | null };
 
-const mentorLabel = (m?: Mentor) => m?.email ?? "unknown";
+function formatMentorName(email: string | null | undefined, fallbackId?: string | null): string {
+  if (!email) {
+    if (fallbackId) return `Mentor ${fallbackId.slice(0, 8)}`;
+    return "Unassigned";
+  }
+
+  const handle = email.split("@")[0]?.trim();
+  if (!handle) return email;
+
+  const normalized = email.toLowerCase().trim();
+  if (normalized.includes("divyapahuja")) return "Divya Pahuja";
+  if (normalized.includes("raghav.khandelwal") || normalized.includes("raghavkhandelwal")) return "Raghav Khandelwal";
+
+  const clean = handle.replace(/[\d._-]+/g, " ").trim();
+  if (!clean) return handle;
+
+  return clean
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+
+const mentorLabel = (m?: Mentor) => formatMentorName(m?.email, m?.user_id);
 
 function Page() {
   const initialData = Route.useLoaderData();

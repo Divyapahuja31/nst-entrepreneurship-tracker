@@ -102,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap",
       },
     ],
   }),
@@ -114,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
@@ -132,19 +132,20 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <SidebarProvider>
-          <div className="flex min-h-screen w-full">
+          <div className="flex min-h-screen w-full bg-[#FAF8F5] text-stone-900 antialiased selection:bg-[#C85A32]/15 selection:text-[#C85A32]">
             <AppSidebar />
-            <div className="relative flex min-h-screen flex-1 flex-col">
-              <div className="pointer-events-none absolute inset-0 grid-bg opacity-40" />
+            <div className="relative flex min-h-screen flex-1 flex-col overflow-x-hidden">
+              <div className="pointer-events-none absolute left-0 top-0 h-96 w-96 rounded-full bg-[#C85A32]/5 blur-3xl" />
+              <div className="pointer-events-none absolute right-0 top-1/3 h-96 w-96 rounded-full bg-amber-500/5 blur-3xl" />
               <div className="absolute left-3 top-3 z-50 md:hidden">
-                <SidebarTrigger className="glass rounded-md" />
+                <SidebarTrigger className="glass-card rounded-md p-1 text-stone-700 hover:bg-stone-100" />
               </div>
               <div className="relative flex flex-1 flex-col">
                 <Outlet />
               </div>
             </div>
           </div>
-          <Toaster theme="dark" position="top-right" />
+          <Toaster theme="light" position="top-right" />
         </SidebarProvider>
       </AuthProvider>
     </QueryClientProvider>
