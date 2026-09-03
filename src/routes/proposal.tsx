@@ -63,6 +63,24 @@ function formatMentorName(email: string | null | undefined, fallbackId?: string 
 
 const mentorLabel = (m?: Mentor) => formatMentorName(m?.email, m?.user_id);
 
+function formatStudentName(email: string | null | undefined, fallbackId?: number | string | null): string {
+  if (!email) {
+    if (fallbackId) return `Student #${fallbackId}`;
+    return "Unknown Submitter";
+  }
+
+  const handle = email.split("@")[0]?.trim();
+  if (!handle) return email;
+
+  const clean = handle.replace(/[\d._-]+/g, " ").trim();
+  if (!clean) return handle;
+
+  return clean
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+
 function Page() {
   const initialData = Route.useLoaderData();
   const [proposals, setProposals] = useState(initialData.proposals);
@@ -119,12 +137,13 @@ function Page() {
         const target = proposals?.find((p) => p.id === proposal_id);
         if (target) {
           const submitter = target.user_roles;
+          const formattedName = formatStudentName(submitter?.email, target.id);
 
           const { error: vError } = await supabase.from("ventures").insert([
             {
               user_id: target.user_id,
               mentor_id: mentorId,
-              student_name: submitter?.email?.trim() ?? `Proposal #${target.id}`,
+              student_name: formattedName,
               subject: target.subject || target.venture || "Entrepreneurship Venture",
               roll_no: submitter?.roll_no?.trim() || `${target.id}`,
             },
@@ -138,7 +157,7 @@ function Page() {
                 ? "You are assigned as mentor."
                 : `Mentor assigned: ${mentorLabel(mentors.find((m) => m.user_id === mentorId))}.`;
             toast.success(
-              `Proposal accepted! Student "${submitter?.email?.trim() ?? `#${target.id}`}" added to Manage Result. ${mentorNote}`,
+              `Proposal accepted! Student "${formattedName}" added to Manage Result. ${mentorNote}`,
             );
           }
         }
@@ -203,7 +222,7 @@ function Page() {
               >
                 <div className="col-span-3">
                   <p className="font-mono text-sm font-medium">
-                    {proposal.user_roles?.email ?? "Unknown submitter"}
+                    {formatStudentName(proposal.user_roles?.email, proposal.id)}
                   </p>
                   <p className="font-mono text-[11px] text-muted-foreground/70">
                     {proposal.user_roles?.roll_no ?? "—"}

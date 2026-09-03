@@ -37,8 +37,8 @@ function Chips({ items, tone = "default" }: { items: string[]; tone?: "default" 
           variant="outline"
           className={
             tone === "tpf"
-              ? "border-emerald-400/30 bg-emerald-500/10 font-mono text-[10px] text-emerald-200"
-              : "border-primary/30 bg-primary/10 font-mono text-[10px] text-primary"
+              ? "border-emerald-300 bg-emerald-100/90 font-mono text-[10px] text-emerald-900 font-semibold shadow-2xs"
+              : "border-primary/30 bg-primary/10 font-mono text-[10px] text-primary font-semibold"
           }
         >
           {x}
@@ -54,22 +54,22 @@ function Page() {
     <>
       <TopBar title="Industry Partner Collaboration Framework" breadcrumb="Governance & Outcomes" />
       <main className="flex-1 space-y-8 px-6 py-8 lg:px-10 lg:py-10">
-        <section className="glass-strong rounded-2xl p-7">
+        <section className="glass-strong rounded-2xl p-7 border border-stone-200/80 bg-white/80">
           <div className="flex items-start gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-500/15 ring-1 ring-emerald-400/40">
-              <Handshake className="h-4 w-4 text-emerald-300" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-100 ring-1 ring-emerald-300">
+              <Handshake className="h-4 w-4 text-emerald-800" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-emerald-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-emerald-800 font-bold">
                   Anchor Partner
                 </p>
                 <TpfBadge />
               </div>
-              <h2 className="font-mono text-xl tracking-tight">
+              <h2 className="font-mono text-xl tracking-tight text-stone-900 font-bold">
                 The Placement Factory · ecosystem contribution model
               </h2>
-              <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+              <p className="mt-2 max-w-3xl text-sm text-stone-600 font-sans leading-relaxed">
                 TPF participates as a specialist ecosystem contributor — providing industry signal,
                 expert sessions, external evaluations and ecosystem access. NST retains full
                 ownership of academic delivery, evaluation and credit governance.
@@ -87,19 +87,19 @@ function Page() {
 
           <Section title="Specialist Masterclasses">
             <TpfBlock label="TPF-Led Sessions">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-200/80">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 font-bold">
                 Semester 1
               </p>
-              <ol className="mt-1 list-decimal pl-4 text-xs text-emerald-50/90">
+              <ol className="mt-1.5 list-decimal pl-4 space-y-1 text-xs text-emerald-950 font-medium">
                 {p.masterclasses.sem1.map((x) => (
                   <li key={x}>{x}</li>
                 ))}
               </ol>
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-200/80">
+              <p className="mt-3.5 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 font-bold">
                 Semester 2
               </p>
               <ol
-                className="mt-1 list-decimal pl-4 text-xs text-emerald-50/90"
+                className="mt-1.5 list-decimal pl-4 space-y-1 text-xs text-emerald-950 font-medium"
                 start={p.masterclasses.sem1.length + 1}
               >
                 {p.masterclasses.sem2.map((x) => (
@@ -111,11 +111,11 @@ function Page() {
 
           <Section title="Founder Reviews · Mid-Sem Support">
             <TpfBlock>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-200/80">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 font-bold mb-1.5">
                 Scope
               </p>
               <Chips items={p.founderReviews.scope} tone="tpf" />
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-200/80">
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 font-bold mb-1.5">
                 Role
               </p>
               <Chips items={p.founderReviews.role} tone="tpf" />
@@ -124,11 +124,11 @@ function Page() {
 
           <Section title="Demo Day Support">
             <TpfBlock>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-200/80">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 font-bold mb-1.5">
                 Core Support
               </p>
               <Chips items={p.demoDay.support} tone="tpf" />
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-200/80">
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-800 font-bold mb-1.5">
                 Optional Invitations
               </p>
               <Chips items={p.demoDay.optional} tone="tpf" />
@@ -154,7 +154,7 @@ function Page() {
           </Section>
 
           <Section title="Annual Engagement Structure">
-            <div className="grid gap-2">
+            <div className="grid gap-2.5">
               <TpfBlock label="Semester 1">
                 <Chips items={p.annualEngagement.sem1} tone="tpf" />
               </TpfBlock>
@@ -168,37 +168,37 @@ function Page() {
           </Section>
         </div>
 
-        <section className="glass-strong rounded-2xl p-7">
-          <h3 className="font-mono text-sm tracking-tight">Ownership Model</h3>
+        <section className="glass-strong rounded-2xl p-7 border border-stone-200/80 bg-white/80">
+          <h3 className="font-mono text-sm tracking-tight text-stone-900 font-bold">Ownership Model</h3>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             <div className="rounded-lg border border-primary/30 bg-primary/10 p-4">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary font-bold">
                 NST Ownership
               </p>
-              <ul className="mt-2 space-y-1 text-xs text-primary/90">
+              <ul className="mt-2 space-y-1 text-xs text-primary/90 font-medium">
                 {p.ownership.nst.map((x) => (
                   <li key={x}>· {x}</li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 p-4">
+            <div className="rounded-lg border border-emerald-300 bg-emerald-50/90 p-4">
               <div className="flex items-center gap-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-800 font-bold">
                   Industry Partner Ownership
                 </p>
                 <TpfBadge />
               </div>
-              <ul className="mt-2 space-y-1 text-xs text-emerald-50/90">
+              <ul className="mt-2 space-y-1 text-xs text-emerald-950 font-medium">
                 {p.ownership.partner.map((x) => (
                   <li key={x}>· {x}</li>
                 ))}
               </ul>
             </div>
             <div className="rounded-lg border border-chart-5/30 bg-chart-5/10 p-4">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-chart-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-chart-5 font-bold">
                 Joint Ownership
               </p>
-              <ul className="mt-2 space-y-1 text-xs text-chart-5/90">
+              <ul className="mt-2 space-y-1 text-xs text-chart-5/90 font-medium">
                 {p.ownership.joint.map((x) => (
                   <li key={x}>· {x}</li>
                 ))}

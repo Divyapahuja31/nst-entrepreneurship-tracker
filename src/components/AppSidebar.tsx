@@ -75,7 +75,7 @@ const studentMasterFrameworkSection: NavSection = {
   id: "student-master-framework",
   label: "MASTER FRAMEWORK",
   items: [
-    { title: "View Proposal", url: "/proposal", icon: FileText },
+    { title: "Proposal", url: "/proposal", icon: FileText },
     { title: "Philosophy", url: "/philosophy", icon: Compass },
     { title: "4-Year Roadmap", url: "/roadmap", icon: Map },
     { title: "Evaluation Logic", url: "/evaluation", icon: Gauge },
@@ -117,7 +117,6 @@ const adminDashboardsSection: NavSection = {
   label: "DASHBOARDS",
   items: [
     { title: "Overview", url: "/", icon: LayoutDashboard, exact: true },
-    { title: "View Results", url: "/result", icon: CheckCircle2 },
   ],
 };
 
@@ -125,7 +124,7 @@ const adminMasterFrameworkSection: NavSection = {
   id: "admin-master-framework",
   label: "MASTER FRAMEWORK",
   items: [
-    { title: "View Proposal", url: "/proposal", icon: FileText },
+    { title: "Proposal", url: "/proposal", icon: FileText },
     { title: "Philosophy", url: "/philosophy", icon: Compass },
     { title: "4-Year Roadmap", url: "/roadmap", icon: Map },
     { title: "Evaluation Logic", url: "/evaluation", icon: Gauge },
